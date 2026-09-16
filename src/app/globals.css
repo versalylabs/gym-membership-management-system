@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-primary: #C8FF3D;
+    --brand-accent: #8C9390;
+    --brand-dark: #111315;
+    --brand-carbon: #202427;
+    --brand-parchment: #F4F3EE;
+    --brand-olive: #8C9390;
+    --brand-chartreuse: #C8FF3D;
+    --brand-50: #f7fee7;
+    --brand-100: #ecfccb;
+    --brand-600: #aee624;
+    --brand-700: #92c416;
+  }
+
+  body {
+    @apply bg-[#111315] text-[#F4F3EE] antialiased min-h-screen selection:bg-[#C8FF3D] selection:text-[#111315];
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+  }
+}
+
+/* Custom Glass & Surface Utilities */
+.glass-panel {
+  background: rgba(32, 36, 39, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(140, 147, 144, 0.2);
+}
+
+.glass-panel-glow {
+  background: rgba(32, 36, 39, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(140, 147, 144, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Subtle dot grid pattern */
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(140, 147, 144, 0.25) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111315;
+}
+::-webkit-scrollbar-thumb {
+  background: #202427;
+  border-radius: 9999px;
+  border: 1px solid rgba(140, 147, 144, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8C9390;
+}
+
+/* Pulse animation helper */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-subtle-pulse {
+  animation: subtle-pulse 3s infinite ease-in-out;
+}

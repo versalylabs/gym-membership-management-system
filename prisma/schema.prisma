@@ -1,0 +1,247 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model GymSetting {
+  id              String   @id @default("default-gym")
+  gymName         String   @default("Pulse")
+  tagline         String   @default("Fuel Your Heartbeat. Master Your Strength.")
+  logoUrl         String?  @default("/logo.png")
+  primaryColor    String   @default("#C8FF3D") // Chartreuse Volt default
+  accentColor     String   @default("#8C9390") // Grey Olive
+  currencySymbol  String   @default("$")
+  currencyCode    String   @default("USD")
+  taxRate         Float    @default(0.0)
+  contactEmail    String   @default("contact@pulsegym.com")
+  phone           String   @default("+1 (555) 892-4411")
+  address         String   @default("450 Olympus Way, Suite 100, Austin, TX")
+  website         String   @default("https://pulsegym.com")
+  kioskPin        String   @default("1234")
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String
+  passwordHash String        @default("password123")
+  role         String        @default("RECEPTIONIST") // OWNER, MANAGER, RECEPTIONIST, TRAINER
+  phone        String?
+  avatar       String?
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  trainers     TrainerClient[] @relation("TrainerRel")
+}
+
+model Member {
+  id                String         @id @default(cuid())
+  memberCode        String         @unique // e.g. IP-1001
+  firstName         String
+  lastName          String
+  email             String         @unique
+  phone             String
+  gender            String?
+  dateOfBirth       DateTime?
+  address           String?
+  emergencyName     String?
+  emergencyPhone    String?
+  emergencyRelation String?        // e.g. Spouse, Parent, Sibling, Friend
+  medicalNotes      String?
+  fitnessGoals      String?        // e.g. "Fat Loss, Muscle Gain, Rehab"
+  avatar            String?
+  status            String         @default("ACTIVE") // ACTIVE, EXPIRED, FROZEN, PENDING
+  joinDate          DateTime       @default(now())
+  qrCodeToken       String         @unique @default(cuid())
+  signature         String?        // Base64 digital signature
+  waiverSignedAt    DateTime?      // Timestamp of waiver signing
+  notes             String?
+  stripeCustomerId  String?
+  cardBrand         String?        // Visa, Mastercard, Amex
+  cardLast4         String?        // e.g. 4242
+  
+  subscriptions     Subscription[]
+  payments          Payment[]
+  attendances       Attendance[]
+  classBookings     ClassBooking[]
+  sales             Sale[]
+  trainerClients    TrainerClient[]
+  
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+}
+
+model MembershipPlan {
+  id                 String         @id @default(cuid())
+  name               String         // e.g. "Gold All-Access Annual", "Monthly Flex"
+  description        String?
+  durationMonths     Int            @default(1)
+  durationDays       Int            @default(30)
+  price              Float
+  signupFee          Float          @default(0.0)
+  sessionLimit       Int?           // null = unlimited
+  isGroupClass       Boolean        @default(true)
+  isPersonalTraining Boolean        @default(false)
+  features           String?        // JSON or comma separated string
+  isActive           Boolean        @default(true)
+  
+  subscriptions      Subscription[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+}
+
+model Subscription {
+  id                   String         @id @default(cuid())
+  memberId             String
+  member               Member         @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  planId               String
+  plan                 MembershipPlan @relation(fields: [planId], references: [id])
+  startDate            DateTime       @default(now())
+  endDate              DateTime
+  status               String         @default("ACTIVE") // ACTIVE, EXPIRED, FROZEN, CANCELLED
+  autoRenew            Boolean        @default(false)
+  pricePaid            Float
+  freezeStartDate      DateTime?
+  freezeEndDate        DateTime?
+  stripeSubscriptionId String?
+  nextBillingDate      DateTime?
+  failedAttempts       Int            @default(0)
+  
+  payments             Payment[]
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  memberId              String
+  member                Member        @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  subscriptionId        String?
+  subscription          Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  amount                Float
+  currency              String        @default("USD")
+  method                String        @default("CARD") // CASH, CARD, STRIPE, TRANSFER
+  status                String        @default("PAID") // PAID, PENDING, REFUNDED, FAILED
+  receiptNumber         String        @unique
+  invoiceNumber         String?
+  notes                 String?
+  stripePaymentIntentId String?
+  refundedAmount        Float         @default(0.0)
+  refundStatus          String?       // FULL, PARTIAL
+  refundReason          String?
+  paidAt                DateTime      @default(now())
+  createdAt             DateTime      @default(now())
+}
+
+model Attendance {
+  id           String    @id @default(cuid())
+  memberId     String
+  member       Member    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  checkInTime  DateTime  @default(now())
+  checkOutTime DateTime?
+  method       String    @default("QR_SCAN") // QR_SCAN, MANUAL, CARD
+  notes        String?
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?
+  phone       String
+  status      String   @default("NEW_INQUIRY") // NEW_INQUIRY, TRIAL_BOOKED, TRIAL_COMPLETED, WON, LOST
+  source      String?  @default("WALK_IN") // WALK_IN, INSTAGRAM, WEBSITE, REFERRAL
+  interest    String?  // Personal Training, Group Classes, General Gym
+  notes       String?
+  trialDate   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ClassSchedule {
+  id             String         @id @default(cuid())
+  title          String         // e.g. "CrossFit WOD", "Vinyasa Yoga", "HIIT Blast"
+  description    String?
+  instructorName String
+  instructorId   String?
+  startTime      String         // e.g. "07:00 AM"
+  endTime        String         // e.g. "08:00 AM"
+  daysOfWeek     String         // e.g. "MON,WED,FRI"
+  capacity       Int            @default(20)
+  room           String?        @default("Studio A")
+  color          String         @default("#3b82f6") // Badge color
+  isActive       Boolean        @default(true)
+  
+  bookings       ClassBooking[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model ClassBooking {
+  id          String        @id @default(cuid())
+  classId     String
+  classObj    ClassSchedule @relation(fields: [classId], references: [id], onDelete: Cascade)
+  memberId    String
+  member      Member        @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  bookingDate DateTime      @default(now())
+  status      String        @default("CONFIRMED") // CONFIRMED, ATTENDED, CANCELLED, NO_SHOW
+  createdAt   DateTime      @default(now())
+}
+
+model Product {
+  id             String     @id @default(cuid())
+  name           String
+  sku            String     @unique
+  category       String     @default("Supplements") // Supplements, Drinks, Apparel, Accessories
+  price          Float
+  costPrice      Float      @default(0.0)
+  stockQuantity  Int        @default(0)
+  minStockAlert  Int        @default(5)
+  image          String?
+  isActive       Boolean    @default(true)
+  
+  saleItems      SaleItem[]
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Sale {
+  id            String     @id @default(cuid())
+  memberId      String?
+  member        Member?    @relation(fields: [memberId], references: [id], onDelete: SetNull)
+  staffId       String?
+  totalAmount   Float
+  paymentMethod String     @default("CASH") // CASH, CARD, MEMBER_ACCOUNT
+  notes         String?
+  items         SaleItem[]
+  createdAt     DateTime   @default(now())
+}
+
+model SaleItem {
+  id        String  @id @default(cuid())
+  saleId    String
+  sale      Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+  unitPrice Float
+  subtotal  Float
+}
+
+model TrainerClient {
+  id                String   @id @default(cuid())
+  trainerId         String
+  trainer           User     @relation("TrainerRel", fields: [trainerId], references: [id], onDelete: Cascade)
+  memberId          String
+  member            Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  sessionsTotal     Int      @default(10)
+  sessionsRemaining Int      @default(10)
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
