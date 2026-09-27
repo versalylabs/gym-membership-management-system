@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { useBrand } from "@/lib/brand-context";
 import {
+  Activity,
   Lock,
   Mail,
   Dumbbell,
@@ -20,7 +21,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function LoginPage() {
+function LoginContent() {
   const { login, quickLogin } = useAuth();
   const { brand } = useBrand();
   const router = useRouter();
@@ -74,10 +75,14 @@ export default function LoginPage() {
       <div className="absolute top-6 left-6 right-6 flex items-center justify-between max-w-5xl mx-auto w-full z-10">
         <div className="flex items-center gap-2.5">
           <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg"
-            style={{ backgroundColor: brand.primaryColor }}
+            className="w-9 h-9 rounded-full flex items-center justify-center font-black shadow-lg"
+            style={{
+              backgroundColor: brand.primaryColor,
+              color: "#111315",
+              boxShadow: `0 0 16px ${brand.primaryColor}50`,
+            }}
           >
-            <Dumbbell className="w-5 h-5 text-[#111315]" />
+            <Activity className="w-5 h-5 stroke-[2.5]" />
           </div>
           <div>
             <span className="text-base font-black tracking-tight text-[#F4F3EE]">
@@ -246,3 +251,18 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#111315] text-[#F4F3EE] flex items-center justify-center text-xs text-[#8C9390]">
+          Loading staff portal...
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
+  );
+}
+

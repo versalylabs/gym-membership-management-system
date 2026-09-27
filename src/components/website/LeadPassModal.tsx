@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useBrand } from "@/lib/brand-context";
 import {
+  Activity,
   X,
   Sparkles,
   CheckCircle2,
@@ -263,10 +264,10 @@ export default function LeadPassModal({
               <div className="flex items-center justify-between pb-3 border-b border-[#202427]">
                 <div className="flex items-center gap-2">
                   <div
-                    className="w-6 h-6 rounded-lg flex items-center justify-center font-black text-[10px]"
+                    className="w-6 h-6 rounded-full flex items-center justify-center shadow"
                     style={{ backgroundColor: brand.primaryColor, color: "#111315" }}
                   >
-                    VP
+                    <Activity className="w-3.5 h-3.5 stroke-[2.5]" />
                   </div>
                   <span className="text-xs font-black text-[#F4F3EE] tracking-tight uppercase">
                     {brand.gymName}

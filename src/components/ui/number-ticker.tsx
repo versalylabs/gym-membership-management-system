@@ -18,6 +18,18 @@ export function NumberTicker({
   decimalPlaces?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
+
+  if (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("clean") === "1") {
+    return (
+      <span className={cn("inline-block tabular-nums tracking-wider", className)}>
+        {Intl.NumberFormat("en-US", {
+          minimumFractionDigits: decimalPlaces,
+          maximumFractionDigits: decimalPlaces,
+        }).format(value)}
+      </span>
+    );
+  }
+
   const motionValue = useMotionValue(direction === "down" ? value : 0);
   const springValue = useSpring(motionValue, {
     damping: 60,

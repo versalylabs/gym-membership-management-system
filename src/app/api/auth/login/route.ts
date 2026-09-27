@@ -32,11 +32,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Verify password against hash, with fallback to demo password for seeded records
-    const isMatch =
-      (await verifyPassword(password, user.passwordHash)) ||
-      password === "pulse123" ||
-      user.passwordHash === password;
+    // Verify password strictly against salted bcrypt hash
+    const isMatch = await verifyPassword(password, user.passwordHash);
 
     if (!isMatch) {
       return NextResponse.json(

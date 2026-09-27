@@ -87,7 +87,7 @@ export default function MembersPage() {
           style={{ backgroundColor: brand.primaryColor }}
         >
           <Plus className="w-4 h-4 text-[#111315]" />
-          <span>+ Register New Athlete</span>
+          <span>Register New Athlete</span>
         </Link>
       </div>
 

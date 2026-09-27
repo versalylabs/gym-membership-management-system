@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useBrand } from "@/lib/brand-context";
 import {
+  Activity,
   Dumbbell,
   ShieldCheck,
   Mail,
@@ -39,12 +40,16 @@ export default function WebsiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#202427]">
           {/* Col 1 & 2: Brand & Platform Mission (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3 group">
               <div
-                className="w-10 h-10 rounded-2xl flex items-center justify-center font-black shadow-lg"
-                style={{ backgroundColor: brand.primaryColor, color: "#111315" }}
+                className="w-10 h-10 rounded-full flex items-center justify-center font-black shadow-lg transition-transform group-hover:scale-105"
+                style={{
+                  backgroundColor: brand.primaryColor,
+                  color: "#111315",
+                  boxShadow: `0 0 16px ${brand.primaryColor}50`,
+                }}
               >
-                <Dumbbell className="w-5 h-5" />
+                <Activity className="w-5 h-5 stroke-[2.5]" />
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-black text-[#F4F3EE] tracking-tight uppercase">

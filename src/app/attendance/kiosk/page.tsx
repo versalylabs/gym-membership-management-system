@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useBrand } from "@/lib/brand-context";
 import { playSuccessChime, playErrorAlert } from "@/lib/audio-effects";
 import {
+  Activity,
   QrCode,
   CheckCircle2,
   AlertCircle,
@@ -169,10 +170,13 @@ export default function FullscreenKioskPage() {
       <div className="relative z-10 flex items-center justify-between border-b border-[#8C9390]/20 pb-4">
         <div className="flex items-center gap-4">
           <div
-            className="w-12 h-12 rounded-2xl flex items-center justify-center text-[#111315] shadow-xl font-black"
-            style={{ backgroundColor: brand.primaryColor }}
+            className="w-12 h-12 rounded-full flex items-center justify-center text-[#111315] shadow-xl font-black"
+            style={{
+              backgroundColor: brand.primaryColor,
+              boxShadow: `0 0 20px ${brand.primaryColor}50`,
+            }}
           >
-            <Dumbbell className="w-7 h-7 text-[#111315]" />
+            <Activity className="w-6 h-6 stroke-[2.5] text-[#111315]" />
           </div>
           <div>
             <div className="flex items-center gap-2">

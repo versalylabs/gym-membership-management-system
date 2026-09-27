@@ -52,14 +52,30 @@ export async function DELETE(
 ) {
   try {
     const { id } = params;
-    // Toggle inactive instead of hard delete to preserve historical subscriptions
-    const plan = await prisma.membershipPlan.update({
-      where: { id },
-      data: { isActive: false },
-    });
-    return NextResponse.json({ success: true, plan });
+    const subCount = await prisma.subscription.count({ where: { planId: id } });
+    if (subCount > 0) {
+      // Toggle inactive if subscriptions exist to preserve historical contracts and invoices
+      const plan = await prisma.membershipPlan.update({
+        where: { id },
+        data: { isActive: false },
+      });
+      return NextResponse.json({
+        success: true,
+        message: "Plan deactivated/archived because active or past subscriptions exist.",
+        plan,
+      });
+    } else {
+      // Hard delete if never assigned to any members
+      await prisma.membershipPlan.delete({
+        where: { id },
+      });
+      return NextResponse.json({
+        success: true,
+        message: "Plan permanently deleted.",
+      });
+    }
   } catch (error) {
-    console.error("Error archiving plan:", error);
+    console.error("Error archiving/deleting plan:", error);
     return NextResponse.json({ error: "Failed to delete plan" }, { status: 500 });
   }
 }

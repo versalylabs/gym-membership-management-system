@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useBrand } from "@/lib/brand-context";
 import { useAuth } from "@/lib/auth-context";
 import {
+  Activity,
   LayoutDashboard,
   Users,
   CreditCard,
@@ -54,12 +55,16 @@ export default function Sidebar() {
     >
       {/* Brand Header */}
       <div className="flex items-center justify-between px-4 py-5 border-b border-[#8C9390]/20">
-        <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden">
+        <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden group">
           <div
-            className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-black shadow-lg transition-colors"
-            style={{ backgroundColor: brand.primaryColor, color: "#111315" }}
+            className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-black shadow-lg transition-transform group-hover:scale-105"
+            style={{
+              backgroundColor: brand.primaryColor,
+              color: "#111315",
+              boxShadow: `0 0 16px ${brand.primaryColor}50`,
+            }}
           >
-            <Dumbbell className="w-6 h-6" />
+            <Activity className="w-5 h-5 stroke-[2.5]" />
           </div>
           {!collapsed && (
             <div className="flex flex-col min-w-0">

@@ -145,7 +145,7 @@ export default function Dashboard() {
               style={{ backgroundColor: brand.primaryColor }}
             >
               <UserPlus className="w-4 h-4 text-[#111315]" />
-              <span>+ New Member</span>
+              <span>New Member</span>
             </Link>
 
             <Link

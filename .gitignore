@@ -8,3 +8,7 @@ dist/
 build/
 .vscode/
 .idea/
+.next/
+*.db
+*.db-journal
+*.tsbuildinfo

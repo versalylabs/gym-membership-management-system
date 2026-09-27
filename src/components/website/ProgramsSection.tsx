@@ -80,19 +80,25 @@ export default function ProgramsSection({ onOpenFreePass }: ProgramsSectionProps
   ];
 
   return (
-    <section id="programs" className="py-24 bg-[#111315] relative border-t border-[#202427]">
+    <section id="programs" className="py-14 sm:py-16 bg-[#111315] relative border-t border-[#202427]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <ScrollReveal direction="up" duration={0.6}>
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#202427] border border-[#8C9390]/30 text-xs font-bold text-[#F4F3EE] uppercase tracking-wider mb-3 shadow">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#202427] border border-[#8C9390]/30 text-xs font-bold text-[#F4F3EE] uppercase tracking-wider mb-2.5 shadow">
               <Trophy className="w-3.5 h-3.5 text-[#C8FF3D]" />
               <span>Training Programs</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-[#F4F3EE] tracking-tight uppercase">
-              Fitness For Every Goal
+              Fitness For Every{" "}
+              <span
+                className="font-timegoing text-[#C8FF3D] inline-block transform -rotate-1 px-1 drop-shadow-[0_0_20px_rgba(200,255,61,0.35)]"
+                style={{ color: brand.primaryColor }}
+              >
+                GOAL
+              </span>
             </h2>
-            <p className="mt-4 text-[#8C9390] text-sm sm:text-base">
+            <p className="mt-3.5 text-[#8C9390] text-sm sm:text-base">
               Whether your goal is breaking a deadlift personal record, shedding body fat, or building explosive athletic endurance, our zones deliver results.
             </p>
           </div>

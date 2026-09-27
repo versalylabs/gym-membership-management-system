@@ -19,6 +19,9 @@ import {
   X,
   RefreshCw,
   Award,
+  Edit2,
+  Trash2,
+  UserPlus,
 } from "lucide-react";
 
 export default function TrainersPage() {
@@ -31,8 +34,19 @@ export default function TrainersPage() {
   // Modals
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showDebitModal, setShowDebitModal] = useState<any>(null);
+  const [showAddTrainerModal, setShowAddTrainerModal] = useState(false);
+  const [showEditTrainerModal, setShowEditTrainerModal] = useState<any>(null);
   const [workoutNotes, setWorkoutNotes] = useState("");
   const [debiting, setDebiting] = useState(false);
+  const [submittingTrainer, setSubmittingTrainer] = useState(false);
+
+  // New Trainer Form
+  const [newTrainerForm, setNewTrainerForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    role: "TRAINER",
+  });
 
   // Assign Form
   const [assignForm, setAssignForm] = useState({
@@ -73,6 +87,72 @@ export default function TrainersPage() {
   useEffect(() => {
     loadData();
   }, []);
+
+  const handleCreateTrainer = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmittingTrainer(true);
+    try {
+      const res = await fetch("/api/trainers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "CREATE_TRAINER", ...newTrainerForm }),
+      });
+      if (res.ok) {
+        setShowAddTrainerModal(false);
+        setNewTrainerForm({ name: "", email: "", phone: "", role: "TRAINER" });
+        loadData();
+      } else {
+        const errData = await res.json();
+        alert(errData.error || "Failed to add trainer.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error adding trainer.");
+    } finally {
+      setSubmittingTrainer(false);
+    }
+  };
+
+  const handleEditTrainer = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!showEditTrainerModal) return;
+    setSubmittingTrainer(true);
+    try {
+      const res = await fetch(`/api/trainers/${showEditTrainerModal.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(showEditTrainerModal),
+      });
+      if (res.ok) {
+        setShowEditTrainerModal(null);
+        loadData();
+      } else {
+        const errData = await res.json();
+        alert(errData.error || "Failed to update trainer.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error updating trainer.");
+    } finally {
+      setSubmittingTrainer(false);
+    }
+  };
+
+  const handleDeleteTrainer = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to remove ${name} from coaches? This will also unassign active client packages.`)) return;
+    try {
+      const res = await fetch(`/api/trainers/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        loadData();
+      } else {
+        const errData = await res.json();
+        alert(errData.error || "Failed to delete trainer.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting trainer.");
+    }
+  };
 
   const handleAssignClient = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,14 +223,24 @@ export default function TrainersPage() {
           </p>
         </div>
 
-        <button
-          onClick={() => setShowAssignModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black text-[#111315] shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98]"
-          style={{ backgroundColor: brand.primaryColor }}
-        >
-          <Plus className="w-4 h-4 text-[#111315]" />
-          <span>Assign PT Client Pack</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowAddTrainerModal(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-black text-[#111315] shadow-lg transition-transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            style={{ backgroundColor: brand.primaryColor }}
+          >
+            <UserPlus className="w-4 h-4 text-[#111315]" />
+            <span>Add Trainer</span>
+          </button>
+
+          <button
+            onClick={() => setShowAssignModal(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#F4F3EE] bg-[#202427] border border-[#8C9390]/30 shadow-lg transition-colors hover:border-[#C8FF3D]/50 hover:bg-[#111315] cursor-pointer"
+          >
+            <Plus className="w-4 h-4 text-[#C8FF3D]" />
+            <span>Assign PT Client Pack</span>
+          </button>
+        </div>
       </div>
 
       {/* Trainers Directory Cards */}
@@ -160,19 +250,40 @@ export default function TrainersPage() {
           return (
             <div
               key={t.id}
-              className="p-6 rounded-3xl bg-[#202427] border border-[#8C9390]/25 shadow-xl flex flex-col justify-between hover:border-[#C8FF3D]/50 transition-all duration-300"
+              className="p-6 rounded-3xl bg-[#202427] border border-[#8C9390]/25 shadow-xl flex flex-col justify-between hover:border-[#C8FF3D]/50 transition-all duration-300 relative group"
             >
               <div>
-                <div className="flex items-center gap-4">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center font-black text-base text-[#111315] shadow-md"
-                    style={{ backgroundColor: brand.primaryColor }}
-                  >
-                    {t.name[0]}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <div
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center font-black text-base text-[#111315] shadow-md flex-shrink-0"
+                      style={{ backgroundColor: brand.primaryColor }}
+                    >
+                      {t.name[0]}
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-[#F4F3EE]">{t.name}</h3>
+                      <p className="text-xs text-[#8C9390]">{t.role} &bull; {t.phone || "+1 (555) 018-9922"}</p>
+                      <p className="text-[11px] text-[#8C9390]/70 truncate max-w-[180px]">{t.email}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-[#F4F3EE]">{t.name}</h3>
-                    <p className="text-xs text-[#8C9390]">{t.role} &bull; {t.phone || "+1 (555) 018-9922"}</p>
+
+                  {/* Edit and Remove Buttons */}
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setShowEditTrainerModal(t)}
+                      className="p-1.5 rounded-lg text-[#8C9390] hover:text-[#C8FF3D] hover:bg-[#111315] transition-colors cursor-pointer"
+                      title="Edit Coach Details"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteTrainer(t.id, t.name)}
+                      className="p-1.5 rounded-lg text-[#8C9390] hover:text-rose-400 hover:bg-[#111315] transition-colors cursor-pointer"
+                      title="Remove Coach"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
 
@@ -446,6 +557,195 @@ export default function TrainersPage() {
                   style={{ backgroundColor: brand.primaryColor }}
                 >
                   Assign Package
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ADD NEW TRAINER MODAL */}
+      {showAddTrainerModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-[#8C9390]/20">
+              <h3 className="text-sm font-bold text-[#F4F3EE] flex items-center gap-2">
+                <UserPlus className="w-4 h-4 text-[#C8FF3D]" />
+                Add Certified Coach / Trainer
+              </h3>
+              <button
+                onClick={() => setShowAddTrainerModal(false)}
+                className="text-[#8C9390] hover:text-[#F4F3EE]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateTrainer} className="space-y-3.5 text-xs">
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">
+                  Full Name <span className="text-rose-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Marcus Vance"
+                  value={newTrainerForm.name}
+                  onChange={(e) => setNewTrainerForm({ ...newTrainerForm, name: e.target.value })}
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">
+                  Email Address <span className="text-rose-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="e.g. marcus@pulsegym.com"
+                  value={newTrainerForm.email}
+                  onChange={(e) => setNewTrainerForm({ ...newTrainerForm, email: e.target.value })}
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">Phone Number</label>
+                <input
+                  type="text"
+                  placeholder="e.g. +1 (555) 392-1084"
+                  value={newTrainerForm.phone}
+                  onChange={(e) => setNewTrainerForm({ ...newTrainerForm, phone: e.target.value })}
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">Role / Specialization</label>
+                <select
+                  value={newTrainerForm.role}
+                  onChange={(e) => setNewTrainerForm({ ...newTrainerForm, role: e.target.value })}
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                >
+                  <option value="TRAINER" className="bg-[#111315] text-[#F4F3EE]">Trainer / Personal Coach</option>
+                  <option value="MANAGER" className="bg-[#111315] text-[#F4F3EE]">Head Coach / Manager</option>
+                  <option value="OWNER" className="bg-[#111315] text-[#F4F3EE]">Director / Owner</option>
+                </select>
+              </div>
+
+              <div className="pt-3 border-t border-[#8C9390]/20 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowAddTrainerModal(false)}
+                  className="px-4 py-2 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] hover:bg-[#202427]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submittingTrainer}
+                  className="px-5 py-2 rounded-xl text-[#111315] font-black disabled:opacity-40"
+                  style={{ backgroundColor: brand.primaryColor }}
+                >
+                  {submittingTrainer ? "Saving..." : "Add Coach"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* EDIT TRAINER MODAL */}
+      {showEditTrainerModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-[#8C9390]/20">
+              <h3 className="text-sm font-bold text-[#F4F3EE] flex items-center gap-2">
+                <Edit2 className="w-4 h-4 text-[#C8FF3D]" />
+                Edit Coach Profile
+              </h3>
+              <button
+                onClick={() => setShowEditTrainerModal(null)}
+                className="text-[#8C9390] hover:text-[#F4F3EE]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleEditTrainer} className="space-y-3.5 text-xs">
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">
+                  Full Name <span className="text-rose-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={showEditTrainerModal.name}
+                  onChange={(e) =>
+                    setShowEditTrainerModal({ ...showEditTrainerModal, name: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">
+                  Email Address <span className="text-rose-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={showEditTrainerModal.email}
+                  onChange={(e) =>
+                    setShowEditTrainerModal({ ...showEditTrainerModal, email: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">Phone Number</label>
+                <input
+                  type="text"
+                  value={showEditTrainerModal.phone || ""}
+                  onChange={(e) =>
+                    setShowEditTrainerModal({ ...showEditTrainerModal, phone: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">Role / Position</label>
+                <select
+                  value={showEditTrainerModal.role}
+                  onChange={(e) =>
+                    setShowEditTrainerModal({ ...showEditTrainerModal, role: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                >
+                  <option value="TRAINER" className="bg-[#111315] text-[#F4F3EE]">Trainer / Personal Coach</option>
+                  <option value="MANAGER" className="bg-[#111315] text-[#F4F3EE]">Head Coach / Manager</option>
+                  <option value="OWNER" className="bg-[#111315] text-[#F4F3EE]">Director / Owner</option>
+                </select>
+              </div>
+
+              <div className="pt-3 border-t border-[#8C9390]/20 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowEditTrainerModal(null)}
+                  className="px-4 py-2 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] hover:bg-[#202427]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submittingTrainer}
+                  className="px-5 py-2 rounded-xl text-[#111315] font-black disabled:opacity-40"
+                  style={{ backgroundColor: brand.primaryColor }}
+                >
+                  {submittingTrainer ? "Saving Changes..." : "Save Changes"}
                 </button>
               </div>
             </form>

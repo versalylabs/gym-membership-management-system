@@ -25,6 +25,7 @@ import {
   ChevronRight,
   Layers,
   Coins,
+  Edit2,
 } from "lucide-react";
 
 export default function POSPage() {
@@ -53,8 +54,10 @@ export default function POSPage() {
   const [refundReason, setRefundReason] = useState("Customer cancellation / request");
   const [refunding, setRefunding] = useState(false);
 
-  // Add Product Modal
+  // Add & Edit Product Modals
   const [showAddProductModal, setShowAddProductModal] = useState(false);
+  const [showEditProductModal, setShowEditProductModal] = useState<any | null>(null);
+  const [submittingProduct, setSubmittingProduct] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
     sku: "",
@@ -234,6 +237,47 @@ export default function POSPage() {
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleEditProduct = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!showEditProductModal) return;
+    setSubmittingProduct(true);
+    try {
+      const res = await fetch(`/api/products/${showEditProductModal.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(showEditProductModal),
+      });
+      if (res.ok) {
+        setShowEditProductModal(null);
+        loadData();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to update product.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error updating product.");
+    } finally {
+      setSubmittingProduct(false);
+    }
+  };
+
+  const handleDeleteProduct = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to remove '${name}' from inventory?`)) return;
+    try {
+      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        loadData();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to delete product.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting product.");
     }
   };
 
@@ -589,10 +633,11 @@ export default function POSPage() {
             </h2>
             <button
               onClick={() => setShowAddProductModal(true)}
-              className="px-4 py-2 rounded-xl text-xs font-black text-[#111315] shadow"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black text-[#111315] shadow transition-transform hover:scale-105 active:scale-95 cursor-pointer"
               style={{ backgroundColor: brand.primaryColor }}
             >
-              + Add Product
+              <Plus className="w-4 h-4 text-[#111315]" />
+              <span>Add Product</span>
             </button>
           </div>
 
@@ -606,6 +651,7 @@ export default function POSPage() {
                   <th className="py-4 px-5">Unit Price</th>
                   <th className="py-4 px-5">Cost Price</th>
                   <th className="py-4 px-5">Stock Count</th>
+                  <th className="py-4 px-5 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#8C9390]/15 text-xs">
@@ -636,6 +682,24 @@ export default function POSPage() {
                       >
                         {p.stockQuantity} units
                       </span>
+                    </td>
+                    <td className="py-4 px-5 text-right">
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          onClick={() => setShowEditProductModal({ ...p })}
+                          className="p-1.5 rounded-lg text-[#8C9390] hover:text-[#C8FF3D] hover:bg-[#111315] transition-colors cursor-pointer"
+                          title="Edit Product"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteProduct(p.id, p.name)}
+                          className="p-1.5 rounded-lg text-[#8C9390] hover:text-rose-400 hover:bg-[#111315] transition-colors cursor-pointer"
+                          title="Remove Product"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -904,6 +968,143 @@ export default function POSPage() {
               >
                 Save Product to Inventory
               </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* EDIT PRODUCT MODAL */}
+      {showEditProductModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95 relative">
+            <button
+              onClick={() => setShowEditProductModal(null)}
+              className="absolute top-5 right-5 text-[#8C9390] hover:text-[#F4F3EE]"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <h3 className="text-xl font-black text-[#F4F3EE] uppercase tracking-tight flex items-center gap-2">
+              <Edit2 className="w-5 h-5 text-[#C8FF3D]" />
+              Edit Retail Product
+            </h3>
+
+            <form onSubmit={handleEditProduct} className="mt-4 space-y-4 text-xs">
+              <div>
+                <label className="block text-[#F4F3EE] font-semibold mb-1">Product Title</label>
+                <input
+                  type="text"
+                  required
+                  value={showEditProductModal.name}
+                  onChange={(e) =>
+                    setShowEditProductModal({ ...showEditProductModal, name: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[#F4F3EE] font-semibold mb-1">SKU Code</label>
+                  <input
+                    type="text"
+                    required
+                    value={showEditProductModal.sku}
+                    onChange={(e) =>
+                      setShowEditProductModal({ ...showEditProductModal, sku: e.target.value })
+                    }
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] font-mono focus:border-[#C8FF3D] outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[#F4F3EE] font-semibold mb-1">Category</label>
+                  <select
+                    value={showEditProductModal.category}
+                    onChange={(e) =>
+                      setShowEditProductModal({ ...showEditProductModal, category: e.target.value })
+                    }
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
+                  >
+                    <option value="Supplements" className="bg-[#111315] text-[#F4F3EE]">Supplements</option>
+                    <option value="Drinks" className="bg-[#111315] text-[#F4F3EE]">Drinks</option>
+                    <option value="Apparel" className="bg-[#111315] text-[#F4F3EE]">Apparel</option>
+                    <option value="Snacks" className="bg-[#111315] text-[#F4F3EE]">Snacks</option>
+                    <option value="Passes" className="bg-[#111315] text-[#F4F3EE]">Passes</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[#F4F3EE] font-semibold mb-1">Retail Price ({brand.currencySymbol})</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    required
+                    value={showEditProductModal.price}
+                    onChange={(e) =>
+                      setShowEditProductModal({ ...showEditProductModal, price: Number(e.target.value) })
+                    }
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] font-bold focus:border-[#C8FF3D] outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[#F4F3EE] font-semibold mb-1">Cost Price ({brand.currencySymbol})</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={showEditProductModal.costPrice ?? 0}
+                    onChange={(e) =>
+                      setShowEditProductModal({ ...showEditProductModal, costPrice: Number(e.target.value) })
+                    }
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] font-bold focus:border-[#C8FF3D] outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[#F4F3EE] font-semibold mb-1">Stock Units</label>
+                  <input
+                    type="number"
+                    required
+                    value={showEditProductModal.stockQuantity}
+                    onChange={(e) =>
+                      setShowEditProductModal({ ...showEditProductModal, stockQuantity: Number(e.target.value) })
+                    }
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] font-bold focus:border-[#C8FF3D] outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[#F4F3EE] font-semibold mb-1">Min Stock Alert</label>
+                  <input
+                    type="number"
+                    value={showEditProductModal.minStockAlert ?? 5}
+                    onChange={(e) =>
+                      setShowEditProductModal({ ...showEditProductModal, minStockAlert: Number(e.target.value) })
+                    }
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] font-bold focus:border-[#C8FF3D] outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowEditProductModal(null)}
+                  className="px-4 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-[#F4F3EE] hover:bg-[#202427]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submittingProduct}
+                  className="px-5 py-2.5 rounded-xl text-xs font-black text-[#111315] shadow-xl hover:opacity-90 disabled:opacity-40"
+                  style={{ backgroundColor: brand.primaryColor }}
+                >
+                  {submittingProduct ? "Saving..." : "Update Product"}
+                </button>
+              </div>
             </form>
           </div>
         </div>

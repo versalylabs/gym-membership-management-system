@@ -44,11 +44,19 @@ export async function DELETE(
 ) {
   try {
     const { id } = params;
-    await prisma.product.update({
-      where: { id },
-      data: { isActive: false },
-    });
-    return NextResponse.json({ success: true });
+    const salesCount = await prisma.saleItem.count({ where: { productId: id } });
+    if (salesCount > 0) {
+      await prisma.product.update({
+        where: { id },
+        data: { isActive: false },
+      });
+      return NextResponse.json({ success: true, message: "Product archived/deactivated (has transaction history)." });
+    } else {
+      await prisma.product.delete({
+        where: { id },
+      });
+      return NextResponse.json({ success: true, message: "Product permanently removed." });
+    }
   } catch (error) {
     console.error("Error deleting product:", error);
     return NextResponse.json({ error: "Failed to delete product" }, { status: 500 });

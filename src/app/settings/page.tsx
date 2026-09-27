@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useBrand } from "@/lib/brand-context";
 import {
+  Activity,
   Palette,
   Building,
   DollarSign,
@@ -258,9 +259,9 @@ export default function SettingsPage() {
               />
 
               <div className="relative z-10 pt-10">
-                <div className="w-16 h-16 rounded-2xl bg-[#111315] p-2 shadow-2xl border border-[#8C9390]/25 flex items-center justify-center text-white mb-4">
-                  <Dumbbell
-                    className="w-8 h-8"
+                <div className="w-16 h-16 rounded-full bg-[#111315] p-2 shadow-2xl border border-[#8C9390]/25 flex items-center justify-center text-white mb-4">
+                  <Activity
+                    className="w-8 h-8 stroke-[2.5]"
                     style={{ color: formData.primaryColor }}
                   />
                 </div>

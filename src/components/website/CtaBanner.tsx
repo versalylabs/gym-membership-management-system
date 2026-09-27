@@ -22,7 +22,7 @@ export default function CtaBanner({ onOpenFreePass }: CtaBannerProps) {
   const { brand } = useBrand();
 
   return (
-    <section className="py-20 bg-[#111315] relative overflow-hidden border-t border-[#202427]">
+    <section className="py-12 sm:py-14 bg-[#111315] relative overflow-hidden border-t border-[#202427]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal direction="up" duration={0.6}>
           <div className="relative rounded-3xl bg-gradient-to-r from-[#202427] via-[#202427]/95 to-[#202427] border-2 border-[#8C9390]/30 p-8 sm:p-14 shadow-2xl overflow-hidden hover:border-[#C8FF3D]/60 transition-all duration-500">
@@ -41,7 +41,14 @@ export default function CtaBanner({ onOpenFreePass }: CtaBannerProps) {
                 </div>
 
                 <h2 className="text-3xl sm:text-5xl font-black text-[#F4F3EE] uppercase tracking-tight leading-tight">
-                  READY TO TRANSFORM <br />
+                  READY TO{" "}
+                  <span
+                    className="font-timegoing text-[#C8FF3D] inline-block transform -rotate-1 px-1 drop-shadow-[0_0_25px_rgba(200,255,61,0.35)]"
+                    style={{ color: brand.primaryColor }}
+                  >
+                    TRANSFORM
+                  </span>{" "}
+                  <br />
                   <span style={{ color: brand.primaryColor }}>
                     YOUR BODY & LIFE?
                   </span>

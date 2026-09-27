@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useBrand } from "@/lib/brand-context";
 import {
+  Activity,
   X,
   Calendar,
   Clock,
@@ -222,7 +223,15 @@ export default function ClassBookingModal({ cls, onClose }: ClassBookingModalPro
                 style={{ backgroundColor: brand.primaryColor }}
               />
               <div className="flex items-center justify-between pb-3 border-b border-[#202427]">
-                <span className="text-xs font-bold text-[#F4F3EE]">{brand.gymName}</span>
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center shadow"
+                    style={{ backgroundColor: brand.primaryColor, color: "#111315" }}
+                  >
+                    <Activity className="w-3 h-3 stroke-[2.5]" />
+                  </div>
+                  <span className="text-xs font-bold text-[#F4F3EE]">{brand.gymName}</span>
+                </div>
                 <span className="text-[10px] font-semibold text-[#C8FF3D] uppercase">
                   VIP Guest Pass
                 </span>

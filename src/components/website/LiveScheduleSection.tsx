@@ -89,19 +89,25 @@ export default function LiveScheduleSection() {
   });
 
   return (
-    <section id="schedule" className="py-24 bg-[#111315] relative border-t border-[#202427]">
+    <section id="schedule" className="py-14 sm:py-16 bg-[#111315] relative border-t border-[#202427]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <ScrollReveal direction="up" duration={0.6}>
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#202427] border border-[#8C9390]/30 text-xs font-bold text-[#F4F3EE] uppercase tracking-wider mb-3 shadow">
+          <div className="text-center max-w-3xl mx-auto mb-8">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#202427] border border-[#8C9390]/30 text-xs font-bold text-[#F4F3EE] uppercase tracking-wider mb-2.5 shadow">
               <Calendar className="w-3.5 h-3.5 text-[#C8FF3D]" />
               <span>Weekly Timetable</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-[#F4F3EE] tracking-tight uppercase">
-              Live Group Fitness Timetable
+              Live Group Fitness{" "}
+              <span
+                className="font-timegoing text-[#C8FF3D] inline-block transform rotate-1 px-1 drop-shadow-[0_0_20px_rgba(200,255,61,0.35)]"
+                style={{ color: brand.primaryColor }}
+              >
+                TIMETABLE
+              </span>
             </h2>
-            <p className="mt-4 text-[#8C9390] text-sm sm:text-base">
+            <p className="mt-3.5 text-[#8C9390] text-sm sm:text-base">
               Over 40 coach-led sessions weekly. From 6:00 AM dawn-patrol HIIT to evening Olympic lifting clinics. Reserve your free trial spot in seconds.
             </p>
           </div>
@@ -109,7 +115,7 @@ export default function LiveScheduleSection() {
 
         {/* Day of Week Selector */}
         <ScrollReveal direction="up" delay={0.1} duration={0.5}>
-          <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 scrollbar-none">
+          <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-3 scrollbar-none">
             {days.map((day) => {
               const isSelected = selectedDay.toLowerCase() === day.toLowerCase();
               return (
@@ -135,7 +141,7 @@ export default function LiveScheduleSection() {
 
         {/* Category Filter Pills */}
         <ScrollReveal direction="up" delay={0.15} duration={0.5}>
-          <div className="flex items-center justify-center gap-2 mt-2 mb-8 flex-wrap">
+          <div className="flex items-center justify-center gap-2 mt-2 mb-6 flex-wrap">
             {[
               { label: "All Disciplines", value: "ALL" },
               { label: "Strength & Power", value: "Strength" },
@@ -304,5 +310,29 @@ const defaultSchedule = [
     category: "Yoga",
     capacity: 15,
     color: "#06b6d4",
+  },
+  {
+    id: "cls-5",
+    title: "Olympic Barbell & Clean/Jerk Clinic",
+    daysOfWeek: "TUE,THU,SAT",
+    startTime: "05:30 PM",
+    endTime: "06:45 PM",
+    instructorName: "Devon Reed",
+    room: "Olympic Lifting Bay",
+    category: "Strength",
+    capacity: 12,
+    color: "#eab308",
+  },
+  {
+    id: "cls-6",
+    title: "Functional Combat & Boxing Intervals",
+    daysOfWeek: "WED,FRI,SUN",
+    startTime: "07:30 AM",
+    endTime: "08:30 AM",
+    instructorName: "Sarah Connor",
+    room: "Boxing Ring & Turf",
+    category: "Boxing",
+    capacity: 16,
+    color: "#ef4444",
   },
 ];

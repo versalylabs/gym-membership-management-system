@@ -71,3 +71,35 @@
 .animate-subtle-pulse {
   animation: subtle-pulse 3s infinite ease-in-out;
 }
+
+/* Custom Display Fonts requested by User */
+@font-face {
+  font-family: 'Timegoing';
+  src: url('/fonts/Timegoing.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arial Rounded MT Bold';
+  src: url('/fonts/ArialRoundedMTBold.ttf') format('truetype'),
+       local('Arial Rounded MT Bold');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-timegoing {
+  font-family: 'Timegoing', cursive, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.font-arial-rounded {
+  font-family: 'Arial Rounded MT Bold', 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+/* Hide Next.js dev toast & indicator overlay for clean marketing screenshots */
+nextjs-portal, [data-nextjs-toast], [data-nextjs-dialog-overlay] {
+  display: none !important;
+}

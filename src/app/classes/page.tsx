@@ -234,7 +234,7 @@ export default function ClassesPage() {
           style={{ backgroundColor: brand.primaryColor }}
         >
           <Plus className="w-4 h-4 text-[#111315]" />
-          <span>+ Schedule Class</span>
+          <span>Schedule Class</span>
         </button>
       </div>
 

@@ -37,6 +37,10 @@ export default function GymLandingPage() {
 
   // Fetch real floor headcount
   useEffect(() => {
+    if (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("clean") === "1") {
+      setShowPitchPill(false);
+    }
+
     async function loadOccupancy() {
       try {
         const res = await fetch("/api/dashboard");
@@ -118,40 +122,29 @@ export default function GymLandingPage() {
       {/* Floating Pitch & Demo Controller Bar with Fixed High-Contrast Styling */}
       {showPitchPill && (
         <div className="fixed bottom-6 right-6 z-40 max-w-sm w-full sm:w-auto animate-in slide-in-from-bottom-5 duration-300">
-          <div className="p-3 rounded-2xl bg-[#202427]/95 border border-[#8C9390]/30 shadow-2xl backdrop-blur-xl flex flex-col sm:flex-row items-center gap-3">
-            <div className="flex items-center gap-2">
-              <div
-                className="w-7 h-7 rounded-lg flex items-center justify-center text-[#111315] font-black shadow"
-                style={{ backgroundColor: brand.primaryColor }}
-              >
-                <Sparkles className="w-4 h-4 text-[#111315]" />
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-              <Link
-                href="/dashboard"
-                className="px-3.5 py-1.5 rounded-xl bg-[#111315] hover:bg-[#111315]/80 text-xs font-bold text-[#F4F3EE] hover:text-[#C8FF3D] border border-[#8C9390]/30 flex items-center gap-1.5 transition-all shadow"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#C8FF3D]" />
-                <span>Staff Portal</span>
-              </Link>
-              <Link
-                href="/attendance/kiosk"
-                className="px-3.5 py-1.5 rounded-xl text-xs font-black text-[#111315] shadow flex items-center gap-1.5 hover:opacity-95 transition-all"
-                style={{ backgroundColor: brand.primaryColor }}
-              >
-                <QrCode className="w-3.5 h-3.5 text-[#111315]" />
-                <span>Kiosk</span>
-              </Link>
-              <button
-                onClick={() => setShowPitchPill(false)}
-                className="text-[#8C9390] hover:text-[#F4F3EE] text-sm px-1.5 transition-colors"
-                title="Hide demo bar"
-              >
-                &times;
-              </button>
-            </div>
+          <div className="p-2.5 px-3 rounded-2xl bg-[#202427]/95 border border-[#8C9390]/30 shadow-2xl backdrop-blur-xl flex items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="px-3.5 py-1.5 rounded-xl bg-[#111315] hover:bg-[#111315]/80 text-xs font-bold text-[#F4F3EE] hover:text-[#C8FF3D] border border-[#8C9390]/30 flex items-center gap-1.5 transition-all shadow"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#C8FF3D]" />
+              <span>Staff Portal</span>
+            </Link>
+            <Link
+              href="/attendance/kiosk"
+              className="px-3.5 py-1.5 rounded-xl text-xs font-black text-[#111315] shadow flex items-center gap-1.5 hover:opacity-95 transition-all"
+              style={{ backgroundColor: brand.primaryColor }}
+            >
+              <QrCode className="w-3.5 h-3.5 text-[#111315]" />
+              <span>Kiosk</span>
+            </Link>
+            <button
+              onClick={() => setShowPitchPill(false)}
+              className="text-[#8C9390] hover:text-[#F4F3EE] text-sm px-1.5 transition-colors"
+              title="Hide demo bar"
+            >
+              &times;
+            </button>
           </div>
         </div>
       )}

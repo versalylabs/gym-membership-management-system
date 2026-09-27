@@ -48,17 +48,23 @@ export default function PricingSection({ onOpenFreePass, onSelectPlan }: Pricing
   }, []);
 
   return (
-    <section id="pricing" className="py-20 bg-[#111315] relative border-t border-[#202427]">
+    <section id="pricing" className="py-14 sm:py-16 bg-[#111315] relative border-t border-[#202427]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <ScrollReveal direction="up" duration={0.5}>
-          <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#202427] border border-[#8C9390]/30 text-xs font-bold text-[#F4F3EE] uppercase tracking-wider mb-2.5 shadow">
               <CreditCard className="w-3.5 h-3.5 text-[#C8FF3D]" />
               <span>Membership Plans</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#F4F3EE] tracking-tight uppercase">
-              Choose Your Perfect Plan
+              Choose Your Perfect{" "}
+              <span
+                className="font-timegoing text-[#C8FF3D] inline-block transform -rotate-1 px-1 drop-shadow-[0_0_20px_rgba(200,255,61,0.35)]"
+                style={{ color: brand.primaryColor }}
+              >
+                PLAN
+              </span>
             </h2>
             <p className="mt-2 text-[#8C9390] text-xs sm:text-sm">
               No initiation fees. No lock-in contracts. Upgrade, freeze, or cancel anytime with zero penalties.

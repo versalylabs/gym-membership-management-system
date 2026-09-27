@@ -1,9 +1,13 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log("🌱 Seeding Gym Management Platform with Demo Data...");
+
+  // Generate salted bcrypt password hash
+  const defaultPasswordHash = await bcrypt.hash("pulse123", 10);
 
   // 1. Clean existing records
   await prisma.saleItem.deleteMany();
@@ -46,7 +50,7 @@ async function main() {
     data: {
       email: "manager@pulsegym.com",
       name: "Alex Davis",
-      passwordHash: "pulse123",
+      passwordHash: defaultPasswordHash,
       role: "MANAGER",
       phone: "+1 (555) 019-2834",
     },
@@ -56,7 +60,7 @@ async function main() {
     data: {
       email: "frontdesk@pulsegym.com",
       name: "Taylor Reed",
-      passwordHash: "pulse123",
+      passwordHash: defaultPasswordHash,
       role: "RECEPTIONIST",
       phone: "+1 (555) 014-7721",
     },
@@ -66,7 +70,7 @@ async function main() {
     data: {
       email: "marcus.vance@pulsegym.com",
       name: "Marcus Vance",
-      passwordHash: "pulse123",
+      passwordHash: defaultPasswordHash,
       role: "TRAINER",
       phone: "+1 (555) 018-9922",
     },

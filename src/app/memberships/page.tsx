@@ -136,13 +136,19 @@ export default function MembershipsPage() {
     }
   };
 
-  const handleDeletePlan = async (id: string) => {
-    if (!confirm("Are you sure you want to deactivate this membership plan?")) return;
+  const handleDeletePlan = async (id: string, name?: string) => {
+    if (!confirm(`Are you sure you want to remove '${name || "this plan"}'? If active members are currently subscribed, it will be safely archived/deactivated.`)) return;
     try {
-      await fetch(`/api/memberships/${id}`, { method: "DELETE" });
-      loadPlans();
+      const res = await fetch(`/api/memberships/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        loadPlans();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to remove plan.");
+      }
     } catch (err) {
       console.error(err);
+      alert("Error removing plan.");
     }
   };
 
@@ -198,7 +204,7 @@ export default function MembershipsPage() {
           style={{ backgroundColor: brand.primaryColor }}
         >
           <Plus className="w-4 h-4 text-[#111315]" />
-          <span>+ Create New Tier / Plan</span>
+          <span>Create New Tier / Plan</span>
         </button>
       </div>
 
@@ -226,20 +232,20 @@ export default function MembershipsPage() {
                       : `${plan.durationMonths || 1} Month`}
                   </span>
 
-                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-1.5">
                     <button
-                      onClick={() => setShowEditModal(plan)}
-                      className="p-1.5 rounded-lg text-[#8C9390] hover:text-[#F4F3EE] hover:bg-[#111315] transition-colors"
-                      title="Edit Plan"
+                      onClick={() => setShowEditModal({ ...plan })}
+                      className="p-1.5 rounded-lg text-[#8C9390] hover:text-[#C8FF3D] hover:bg-[#111315] transition-colors cursor-pointer"
+                      title="Edit Plan Tier"
                     >
-                      <Edit2 className="w-3.5 h-3.5" />
+                      <Edit2 className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => handleDeletePlan(plan.id)}
-                      className="p-1.5 rounded-lg text-[#8C9390] hover:text-rose-400 hover:bg-[#111315] transition-colors"
-                      title="Deactivate Plan"
+                      onClick={() => handleDeletePlan(plan.id, plan.name)}
+                      className="p-1.5 rounded-lg text-[#8C9390] hover:text-rose-400 hover:bg-[#111315] transition-colors cursor-pointer"
+                      title="Remove / Deactivate Plan"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -505,13 +511,61 @@ export default function MembershipsPage() {
               </div>
 
               <div>
+                <label className="block text-[#8C9390] font-semibold mb-1">Description</label>
+                <input
+                  type="text"
+                  value={showEditModal.description || ""}
+                  onChange={(e) => setShowEditModal({ ...showEditModal, description: e.target.value })}
+                  className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
+                />
+              </div>
+
+              <div>
                 <label className="block text-[#8C9390] font-semibold mb-1">Features (Comma Separated)</label>
                 <textarea
                   rows={2}
-                  value={showEditModal.features}
+                  value={showEditModal.features || ""}
                   onChange={(e) => setShowEditModal({ ...showEditModal, features: e.target.value })}
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
                 />
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-1">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(showEditModal.isGroupClass)}
+                    onChange={(e) =>
+                      setShowEditModal({ ...showEditModal, isGroupClass: e.target.checked })
+                    }
+                    className="rounded bg-[#111315] border-[#8C9390]/30 text-[#C8FF3D]"
+                  />
+                  <span className="text-[#8C9390]">Group Classes</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(showEditModal.isPersonalTraining)}
+                    onChange={(e) =>
+                      setShowEditModal({ ...showEditModal, isPersonalTraining: e.target.checked })
+                    }
+                    className="rounded bg-[#111315] border-[#8C9390]/30 text-[#C8FF3D]"
+                  />
+                  <span className="text-[#8C9390]">Personal Training</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(showEditModal.isActive)}
+                    onChange={(e) =>
+                      setShowEditModal({ ...showEditModal, isActive: e.target.checked })
+                    }
+                    className="rounded bg-[#111315] border-[#8C9390]/30 text-[#C8FF3D]"
+                  />
+                  <span className={showEditModal.isActive ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>
+                    {showEditModal.isActive ? "Active (Listed)" : "Archived (Hidden)"}
+                  </span>
+                </label>
               </div>
 
               <div className="pt-4 border-t border-[#8C9390]/20 flex justify-end gap-2.5">

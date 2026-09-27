@@ -73,26 +73,32 @@ export default function ReviewsAndFaq() {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-[#111315] relative border-t border-[#202427]">
+    <section id="faq" className="py-14 sm:py-16 bg-[#111315] relative border-t border-[#202427]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Testimonials Sub-section */}
         <ScrollReveal direction="up" duration={0.6}>
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#202427] border border-[#8C9390]/30 text-xs font-bold text-[#F4F3EE] uppercase tracking-wider mb-3 shadow">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#202427] border border-[#8C9390]/30 text-xs font-bold text-[#F4F3EE] uppercase tracking-wider mb-2.5 shadow">
               <Star className="w-3.5 h-3.5 text-[#C8FF3D] fill-[#C8FF3D]" />
               <span>Member Transformations</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-[#F4F3EE] tracking-tight uppercase">
-              Proven Athlete Results
+              Proven Athlete{" "}
+              <span
+                className="font-timegoing text-[#C8FF3D] inline-block transform -rotate-1 px-1 drop-shadow-[0_0_20px_rgba(200,255,61,0.35)]"
+                style={{ color: brand.primaryColor }}
+              >
+                RESULTS
+              </span>
             </h2>
-            <p className="mt-4 text-[#8C9390] text-sm sm:text-base">
+            <p className="mt-3.5 text-[#8C9390] text-sm sm:text-base">
               Real stories from everyday lifters, endurance athletes, and beginners who made {brand.gymName} their training home.
             </p>
           </div>
         </ScrollReveal>
 
         {/* Testimonial Cards */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24" staggerDelay={0.1}>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" staggerDelay={0.1}>
           {testimonials.map((t, idx) => (
             <StaggerItem key={idx}>
               <div
@@ -138,7 +144,13 @@ export default function ReviewsAndFaq() {
                   Got Questions?
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#F4F3EE] tracking-tight uppercase mt-1">
-                  Frequently Asked Questions
+                  Frequently Asked{" "}
+                  <span
+                    className="font-timegoing text-[#C8FF3D] inline-block transform rotate-1 px-1 drop-shadow-[0_0_15px_rgba(200,255,61,0.35)]"
+                    style={{ color: brand.primaryColor }}
+                  >
+                    QUESTIONS
+                  </span>
                 </h3>
               </div>
             </ScrollReveal>

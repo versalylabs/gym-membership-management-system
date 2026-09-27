@@ -14,6 +14,7 @@ import {
   Zap,
   Dumbbell,
   Compass,
+  CheckCircle2,
 } from "lucide-react";
 
 interface AboutSectionProps {
@@ -42,47 +43,98 @@ export default function AboutSection({ onOpenFreePass }: AboutSectionProps) {
   ];
 
   return (
-    <section id="about" className="py-24 bg-[#111315] relative overflow-hidden border-t border-[#202427]">
+    <section id="about" className="py-14 sm:py-16 bg-[#111315] relative overflow-hidden border-t border-[#202427]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column (5 cols): High-Impact Graphic Poster with 3D Depth */}
-          <div className="lg:col-span-5">
-            <ScrollReveal direction="left" duration={0.6}>
-              <div className="rounded-3xl bg-gradient-to-b from-[#202427] to-[#111315] border-2 border-[#8C9390]/30 p-8 sm:p-10 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[440px] group hover:border-[#C8FF3D]/60 transition-all duration-500">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+          {/* Left Column (5 cols): High-Impact Graphic Poster matching Right Column Height */}
+          <div className="lg:col-span-5 flex">
+            <ScrollReveal direction="left" duration={0.6} className="w-full flex">
+              <div className="rounded-3xl bg-gradient-to-b from-[#202427] to-[#111315] border-2 border-[#8C9390]/30 p-7 sm:p-9 shadow-2xl relative overflow-hidden flex flex-col justify-between w-full h-full group hover:border-[#C8FF3D]/60 transition-all duration-500 gap-6">
                 {/* Background glowing sphere */}
                 <div
                   className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full blur-3xl opacity-20 pointer-events-none group-hover:opacity-35 transition-opacity duration-700"
                   style={{ backgroundColor: brand.primaryColor }}
                 />
 
-                <div className="space-y-4 relative z-10">
+                {/* Top Ethos & Heading */}
+                <div className="space-y-3.5 relative z-10">
                   <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#111315] border border-[#8C9390]/30 text-[10px] font-black tracking-widest uppercase text-[#F4F3EE] shadow">
                     <Flame className="w-3.5 h-3.5 text-[#C8FF3D]" />
                     <span>The {brand.gymName} Ethos</span>
                   </span>
 
-                  <h3 className="text-3xl sm:text-4xl font-black text-[#F4F3EE] uppercase tracking-tight leading-tight">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#F4F3EE] uppercase tracking-tight leading-tight">
                     DISCIPLINE TODAY. <br />
                     <span
+                      className="font-timegoing text-[#C8FF3D] inline-block transform rotate-1 drop-shadow-[0_0_20px_rgba(200,255,61,0.35)]"
                       style={{ color: brand.primaryColor }}
-                      className="drop-shadow-md"
                     >
                       SUCCESS TOMORROW.
                     </span>
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-[#8C9390] leading-relaxed pt-2">
+                  <p className="text-xs sm:text-sm text-[#8C9390] leading-relaxed">
                     Greatness isn't born overnight. It's forged rep by rep, session by session, in a community that refuses to let you settle for average.
                   </p>
                 </div>
 
-                <div className="pt-8 border-t border-[#8C9390]/20 relative z-10 flex items-center justify-between">
+                {/* Facility Highlights Checklist to increase height & uniformity */}
+                <div className="space-y-2.5 relative z-10 border-t border-[#8C9390]/20 pt-4">
+                  <p className="text-[11px] font-black uppercase tracking-wider text-[#C8FF3D]">
+                    Facility Highlights & Amenities
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#F4F3EE]/85">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C8FF3D] flex-shrink-0" />
+                      <span>Eleiko Certified Racks</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C8FF3D] flex-shrink-0" />
+                      <span>Finnish Cedar Saunas</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C8FF3D] flex-shrink-0" />
+                      <span>Cold Plunge Therapy</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C8FF3D] flex-shrink-0" />
+                      <span>InBody 570 Scans</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C8FF3D] flex-shrink-0" />
+                      <span>HEPA Air Filtration</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#C8FF3D] flex-shrink-0" />
+                      <span>Complimentary Towels</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Performance Metrics Banner */}
+                <div className="grid grid-cols-3 gap-2 py-3 px-3.5 rounded-2xl bg-[#111315]/80 border border-[#8C9390]/20 relative z-10 text-center">
+                  <div>
+                    <p className="text-sm sm:text-base font-black text-[#F4F3EE]">99.4%</p>
+                    <p className="text-[9px] text-[#8C9390] uppercase font-bold tracking-wider">Satisfaction</p>
+                  </div>
+                  <div className="border-x border-[#8C9390]/20">
+                    <p className="text-sm sm:text-base font-black text-[#C8FF3D]">24/7</p>
+                    <p className="text-[9px] text-[#8C9390] uppercase font-bold tracking-wider">Access</p>
+                  </div>
+                  <div>
+                    <p className="text-sm sm:text-base font-black text-[#F4F3EE]">20k</p>
+                    <p className="text-[9px] text-[#8C9390] uppercase font-bold tracking-wider">Sq Feet</p>
+                  </div>
+                </div>
+
+                {/* Bottom Facility Spec Row */}
+                <div className="pt-4 border-t border-[#8C9390]/20 relative z-10 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-black text-[#F4F3EE] uppercase tracking-wider">20,000 SQ FT FACILITY</p>
                     <p className="text-[10px] text-[#8C9390] font-medium">Validated On-Site Parking &bull; Keyless Access</p>
                   </div>
                   <span
-                    className="w-11 h-11 rounded-2xl flex items-center justify-center font-black text-xs shadow-xl group-hover:scale-110 transition-transform duration-300"
+                    className="w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs shadow-xl group-hover:scale-110 transition-transform duration-300"
                     style={{ backgroundColor: brand.primaryColor, color: "#111315" }}
                   >
                     24/7
@@ -100,9 +152,15 @@ export default function AboutSection({ onOpenFreePass }: AboutSectionProps) {
                   <Sparkles className="w-3.5 h-3.5 text-[#C8FF3D]" />
                   <span>About Our Club</span>
                 </div>
-                <h2 className="text-3xl sm:text-5xl font-black text-[#F4F3EE] tracking-tight uppercase">
+                <h2 className="text-3xl sm:text-5xl font-black text-[#F4F3EE] tracking-tight uppercase leading-[1.1]">
                   More Than Just A Gym. <br />
-                  We Are A Community.
+                  We Are A{" "}
+                  <span
+                    className="font-timegoing text-[#C8FF3D] inline-block transform -rotate-1 px-1 drop-shadow-[0_0_25px_rgba(200,255,61,0.35)]"
+                    style={{ color: brand.primaryColor }}
+                  >
+                    COMMUNITY
+                  </span>
                 </h2>
                 <p className="mt-4 text-[#8C9390] text-sm sm:text-base leading-relaxed">
                   At <strong className="text-[#F4F3EE]">{brand.gymName}</strong>, we believe fitness is a lifelong commitment to self-mastery. We provide an uncompromising athletic environment where every member receives the tools, coaching, and recovery facilities to thrive.
