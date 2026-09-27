@@ -162,7 +162,7 @@ export default function FullscreenKioskPage() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#111315] text-[#F4F3EE] flex flex-col justify-between p-6 sm:p-10 select-none overflow-hidden selection:bg-[#C8FF3D] selection:text-[#111315]">
+    <div className="fixed inset-0 z-50 bg-[#111315] text-[#F4F3EE] flex flex-col justify-between p-4 sm:p-10 select-none overflow-y-auto selection:bg-[#C8FF3D] selection:text-[#111315]">
       {/* Background ambient lighting */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#C8FF3D]/5 rounded-full blur-[140px] pointer-events-none" />
 

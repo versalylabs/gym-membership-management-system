@@ -107,8 +107,8 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
   const totalPrice = plan.price + (plan.signupFee || 0);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto selection:bg-[#C8FF3D] selection:text-[#111315]">
-      <div className="relative w-full max-w-lg bg-[#202427] border border-[#8C9390]/30 rounded-3xl shadow-2xl p-6 sm:p-8 my-8 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto selection:bg-[#C8FF3D] selection:text-[#111315]">
+      <div className="relative w-full max-w-lg bg-[#202427] border border-[#8C9390]/30 rounded-3xl shadow-2xl p-5 sm:p-8 my-auto max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
         {/* Close Button */}
         <button
           onClick={handleClose}

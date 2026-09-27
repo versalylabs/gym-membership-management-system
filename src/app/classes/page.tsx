@@ -586,8 +586,8 @@ export default function ClassesPage() {
 
       {/* EDIT CLASS MODAL */}
       {showEditModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg rounded-3xl bg-[#202427] border border-[#8C9390]/30 shadow-2xl p-6 sm:p-8 text-left">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg rounded-3xl bg-[#202427] border border-[#8C9390]/30 shadow-2xl p-5 sm:p-8 text-left max-h-[90vh] overflow-y-auto my-auto">
             <button
               onClick={() => setShowEditModal(null)}
               className="absolute top-5 right-5 p-2 rounded-xl bg-[#111315] text-[#8C9390] hover:text-[#F4F3EE]"

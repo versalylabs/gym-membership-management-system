@@ -179,7 +179,7 @@ export default function LeadsPage() {
           return (
             <div
               key={col.id}
-              className="rounded-3xl bg-[#202427] border border-[#8C9390]/25 p-4 flex flex-col h-[650px] shadow-xl"
+              className="rounded-3xl bg-[#202427] border border-[#8C9390]/25 p-4 flex flex-col min-h-[260px] h-auto lg:h-[650px] shadow-xl"
             >
               {/* Column Header */}
               <div className="flex items-center justify-between pb-3 border-b border-[#8C9390]/20 mb-3">

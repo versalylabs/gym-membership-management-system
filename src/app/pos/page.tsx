@@ -642,7 +642,8 @@ export default function POSPage() {
           </div>
 
           <div className="rounded-3xl bg-[#202427] border border-[#8C9390]/25 overflow-hidden shadow-xl">
-            <table className="w-full text-left border-collapse">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-[680px]">
               <thead>
                 <tr className="border-b border-[#8C9390]/25 bg-[#111315]/80 text-[10px] font-black text-[#8C9390] uppercase tracking-wider">
                   <th className="py-4 px-5">Item Name</th>
@@ -705,6 +706,7 @@ export default function POSPage() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       )}
@@ -719,7 +721,8 @@ export default function POSPage() {
           </div>
 
           <div className="rounded-3xl bg-[#202427] border border-[#8C9390]/25 overflow-hidden shadow-xl">
-            <table className="w-full text-left border-collapse">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-[680px]">
               <thead>
                 <tr className="border-b border-[#8C9390]/25 bg-[#111315]/80 text-[10px] font-black text-[#8C9390] uppercase tracking-wider">
                   <th className="py-4 px-5">Receipt #</th>
@@ -780,6 +783,7 @@ export default function POSPage() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       )}

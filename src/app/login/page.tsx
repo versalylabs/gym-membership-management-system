@@ -42,8 +42,7 @@ function LoginContent() {
     try {
       const res = await login(email, password);
       if (res.success) {
-        router.push(callbackUrl);
-        router.refresh();
+        window.location.href = callbackUrl;
       } else {
         setError(res.error || "Invalid email or password");
       }

@@ -79,8 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const email = roleEmails[role];
     if (email) {
       await login(email, "pulse123");
-      router.push("/dashboard");
-      router.refresh();
+      window.location.href = "/dashboard";
     }
   };
 
@@ -91,8 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error(e);
     } finally {
       setUser(null);
-      router.push("/login");
-      router.refresh();
+      window.location.href = "/login";
     }
   };
 

@@ -144,7 +144,7 @@ export default function MembersPage() {
       {/* 4. Athlete Table */}
       <div className="rounded-3xl bg-[#202427] border border-[#8C9390]/25 overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse min-w-[680px]">
             <thead>
               <tr className="border-b border-[#8C9390]/20 bg-[#111315]/90 text-[10px] font-black text-[#8C9390] uppercase tracking-wider">
                 <th className="py-4 px-5">Athlete</th>

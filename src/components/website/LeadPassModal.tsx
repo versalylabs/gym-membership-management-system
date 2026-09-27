@@ -95,8 +95,8 @@ export default function LeadPassModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg rounded-3xl bg-[#202427] border border-[#8C9390]/30 shadow-2xl p-6 sm:p-8 overflow-hidden text-left">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg rounded-3xl bg-[#202427] border border-[#8C9390]/30 shadow-2xl p-5 sm:p-8 max-h-[92vh] overflow-y-auto text-left my-auto">
         {/* Background Ambient Glow */}
         <div
           className="absolute -top-24 -right-24 w-52 h-52 rounded-full blur-3xl opacity-20 pointer-events-none"

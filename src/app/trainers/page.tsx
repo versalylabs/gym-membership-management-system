@@ -316,7 +316,7 @@ export default function TrainersPage() {
 
         <div className="rounded-3xl bg-[#202427] border border-[#8C9390]/25 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <table className="w-full text-left text-xs border-collapse min-w-[650px]">
               <thead>
                 <tr className="bg-[#111315]/80 border-b border-[#8C9390]/25 text-[11px] font-semibold text-[#8C9390] uppercase tracking-wider">
                   <th className="py-3.5 px-4">Member</th>
@@ -405,8 +405,8 @@ export default function TrainersPage() {
 
       {/* DEBIT SESSION MODAL */}
       {showDebitModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-5 sm:p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95 my-auto max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-[#8C9390]/20">
               <div>
                 <h3 className="text-sm font-bold text-[#F4F3EE] flex items-center gap-2">
@@ -473,8 +473,8 @@ export default function TrainersPage() {
 
       {/* ASSIGN PT CLIENT MODAL */}
       {showAssignModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-5 sm:p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95 my-auto max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-[#8C9390]/20">
               <h3 className="text-sm font-bold text-[#F4F3EE] flex items-center gap-2">
                 <Plus className="w-4 h-4 text-[#C8FF3D]" />
@@ -566,8 +566,8 @@ export default function TrainersPage() {
 
       {/* ADD NEW TRAINER MODAL */}
       {showAddTrainerModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-5 sm:p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95 my-auto max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-[#8C9390]/20">
               <h3 className="text-sm font-bold text-[#F4F3EE] flex items-center gap-2">
                 <UserPlus className="w-4 h-4 text-[#C8FF3D]" />
@@ -658,8 +658,8 @@ export default function TrainersPage() {
 
       {/* EDIT TRAINER MODAL */}
       {showEditTrainerModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-[#202427] border border-[#8C9390]/25 rounded-3xl p-5 sm:p-6 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in-95 my-auto max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-[#8C9390]/20">
               <h3 className="text-sm font-bold text-[#F4F3EE] flex items-center gap-2">
                 <Edit2 className="w-4 h-4 text-[#C8FF3D]" />

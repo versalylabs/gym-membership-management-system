@@ -15,10 +15,15 @@ import {
   UserCheck,
   Dumbbell,
   User,
+  Menu,
 } from "lucide-react";
 import Link from "next/link";
 
-export default function Header() {
+interface HeaderProps {
+  onOpenMobile?: () => void;
+}
+
+export default function Header({ onOpenMobile }: HeaderProps) {
   const { brand } = useBrand();
   const { user, logout, quickLogin } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,21 +65,32 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-20 flex items-center justify-between h-16 px-6 border-b border-[#8C9390]/20 bg-[#202427]/90 backdrop-blur">
-      {/* Search Bar */}
-      <div className="flex items-center gap-3 w-96">
-        <div className="relative w-full">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C9390]" />
+    <header className="sticky top-0 z-20 flex items-center justify-between h-16 px-3 sm:px-6 border-b border-[#8C9390]/20 bg-[#202427]/90 backdrop-blur gap-2 sm:gap-4">
+      {/* Left: Mobile Drawer Trigger + Search Bar */}
+      <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 max-w-lg">
+        {onOpenMobile && (
+          <button
+            type="button"
+            onClick={onOpenMobile}
+            className="md:hidden p-2 rounded-xl text-[#F4F3EE] hover:bg-[#111315] border border-[#8C9390]/25 transition-colors shrink-0"
+            aria-label="Open navigation drawer"
+          >
+            <Menu className="w-5 h-5 text-[#C8FF3D]" />
+          </button>
+        )}
+
+        <div className="relative w-full max-w-[190px] sm:max-w-xs md:max-w-sm lg:w-96 min-w-0">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C9390]" />
           <input
             type="text"
-            placeholder="Search members, phone, plans, invoices..."
-            className="w-full pl-10 pr-4 py-2 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-xs text-[#F4F3EE] placeholder-[#8C9390]/60 focus:outline-none focus:border-[#C8FF3D] transition-colors"
+            placeholder="Search..."
+            className="w-full pl-9 pr-3 py-1.5 sm:py-2 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-xs text-[#F4F3EE] placeholder-[#8C9390]/60 focus:outline-none focus:border-[#C8FF3D] transition-colors truncate"
           />
         </div>
       </div>
 
       {/* Right Controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
         {/* Quick Public Website Switcher */}
         <Link
           href="/"
@@ -89,15 +105,16 @@ export default function Header() {
         {/* Quick Check-in Launcher */}
         <Link
           href="/attendance"
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black shadow-md hover:opacity-90 transition-transform active:scale-95"
+          className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs font-black shadow-md hover:opacity-90 transition-transform active:scale-95"
           style={{ backgroundColor: brand.primaryColor, color: "#111315" }}
         >
-          <QrCode className="w-4 h-4" />
-          <span>Quick Check-In</span>
+          <QrCode className="w-4 h-4 shrink-0" />
+          <span className="hidden sm:inline">Quick Check-In</span>
+          <span className="sm:hidden text-[11px]">Check-In</span>
         </Link>
 
         {/* Notifications */}
-        <button className="relative p-2 rounded-xl border border-[#8C9390]/25 text-[#8C9390] hover:text-[#F4F3EE] hover:bg-[#111315] transition-colors">
+        <button className="relative p-2 rounded-xl border border-[#8C9390]/25 text-[#8C9390] hover:text-[#F4F3EE] hover:bg-[#111315] transition-colors shrink-0">
           <Bell className="w-4 h-4" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#C8FF3D]" />
         </button>
