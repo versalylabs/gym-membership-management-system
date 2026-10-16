@@ -235,8 +235,25 @@ export default function ReviewsAndFaq() {
                     <Phone className="w-4 h-4 text-[#C8FF3D] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-bold text-[#F4F3EE]">Contact & Support</p>
-                      <p className="text-[#8C9390]">Desk: {brand.phone || "+254 712 345 678"}</p>
-                      <p className="text-[#8C9390]">Email: {brand.contactEmail || "contact@pulsefitness.co.ke"}</p>
+                      <p className="text-[#8C9390]">
+                        Desk:{" "}
+                        <a href="tel:+254704611033" className="hover:text-[#C8FF3D] transition-colors">
+                          +254 704 611 033
+                        </a>
+                        {" / "}
+                        <a href="tel:+25492986825" className="hover:text-[#C8FF3D] transition-colors">
+                          +254 929 868 25
+                        </a>
+                      </p>
+                      <p className="text-[#8C9390]">
+                        Email:{" "}
+                        <a
+                          href={`mailto:${brand.contactEmail || "versalylabs@gmail.com"}`}
+                          className="hover:text-[#C8FF3D] transition-colors"
+                        >
+                          {brand.contactEmail || "versalylabs@gmail.com"}
+                        </a>
+                      </p>
                     </div>
                   </div>
                 </div>

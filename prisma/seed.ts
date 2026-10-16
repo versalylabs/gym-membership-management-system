@@ -37,8 +37,8 @@ async function main() {
       currencySymbol: "KSh",
       currencyCode: "KES",
       taxRate: 16.0, // Standard Kenya VAT
-      contactEmail: "contact@pulsefitness.co.ke",
-      phone: "+254 712 345 678",
+      contactEmail: "versalylabs@gmail.com",
+      phone: "+254 704 611 033 / +254 929 868 25",
       address: "Woodvale Grove, Westlands, Nairobi, Kenya",
       website: "https://pulsefitness.co.ke",
       kioskPin: "1234",

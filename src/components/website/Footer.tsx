@@ -8,6 +8,8 @@ import {
   Dumbbell,
   ShieldCheck,
   Mail,
+  Phone,
+  MapPin,
   ArrowRight,
   Heart,
   Globe,
@@ -64,6 +66,39 @@ export default function WebsiteFooter() {
             <p className="text-xs text-[#8C9390] leading-relaxed max-w-sm">
               The premier training facility and community dedicated to athletic performance, strength progression, and holistic recovery.
             </p>
+
+            {/* Direct Contact Details */}
+            <div className="pt-2 space-y-2 text-xs border-t border-[#202427]/80">
+              <div className="flex flex-wrap items-center gap-1.5 text-[#F4F3EE]">
+                <Phone className="w-3.5 h-3.5 text-[#C8FF3D] shrink-0" />
+                <span className="text-[#8C9390]">Call / WhatsApp:</span>
+                <span className="font-semibold text-xs">
+                  <a href="tel:+254704611033" className="hover:text-[#C8FF3D] transition-colors">
+                    +254 704 611 033
+                  </a>
+                  <span className="text-[#8C9390] mx-1">/</span>
+                  <a href="tel:+25492986825" className="hover:text-[#C8FF3D] transition-colors">
+                    +254 929 868 25
+                  </a>
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 text-[#F4F3EE]">
+                <Mail className="w-3.5 h-3.5 text-[#C8FF3D] shrink-0" />
+                <span className="text-[#8C9390]">Email:</span>
+                <a
+                  href="mailto:versalylabs@gmail.com"
+                  className="font-semibold hover:text-[#C8FF3D] transition-colors"
+                >
+                  versalylabs@gmail.com
+                </a>
+              </div>
+
+              <div className="flex items-center gap-2 text-[#8C9390]">
+                <MapPin className="w-3.5 h-3.5 text-[#C8FF3D] shrink-0" />
+                <span>{brand.address || "Woodvale Grove, Westlands, Nairobi, Kenya"}</span>
+              </div>
+            </div>
 
             {/* Social Links */}
             <div className="flex items-center gap-3 pt-2">
