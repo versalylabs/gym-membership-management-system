@@ -252,21 +252,21 @@ export default function FeatureStorytelling() {
                   Tax Invoice #INV-2026-8942
                 </span>
               </div>
-              <span className="text-xs font-black text-emerald-400">$64.99 PAID</span>
+              <span className="text-xs font-black text-emerald-400">KSh 6,500 PAID</span>
             </div>
 
             <div className="space-y-1.5 text-xs text-slate-300">
               <div className="flex justify-between py-1 border-b border-slate-900">
                 <span>1 &times; Whey Protein Isolate (2kg Tub)</span>
-                <span className="font-bold text-white">$64.99</span>
+                <span className="font-bold text-white">KSh 6,500</span>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-900">
                 <span className="text-slate-400">Subtotal</span>
-                <span>$60.18</span>
+                <span>KSh 5,603.45</span>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-900">
-                <span className="text-slate-400">Sales Tax (8%)</span>
-                <span>$4.81</span>
+                <span className="text-slate-400">VAT (16%)</span>
+                <span>KSh 896.55</span>
               </div>
             </div>
 

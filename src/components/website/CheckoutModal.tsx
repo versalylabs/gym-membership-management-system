@@ -15,6 +15,7 @@ import {
   Loader2,
   Calendar,
   Zap,
+  Smartphone,
 } from "lucide-react";
 
 interface CheckoutModalProps {
@@ -32,6 +33,10 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("Female");
+
+  // Payment Options (M-Pesa / Card)
+  const [paymentOption, setPaymentOption] = useState<"MPESA" | "CARD">("MPESA");
+  const [mpesaPhone, setMpesaPhone] = useState("");
 
   // Card Info
   const [cardNumber, setCardNumber] = useState("4242 •••• •••• 4242");
@@ -52,6 +57,9 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
       return;
     }
     setError(null);
+    if (!mpesaPhone) {
+      setMpesaPhone(phone);
+    }
     setStep("payment");
   };
 
@@ -59,6 +67,12 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    const isMpesa = paymentOption === "MPESA";
+    const last4 = isMpesa
+      ? mpesaPhone.replace(/\D/g, "").slice(-4) || "MPES"
+      : cardNumber.replace(/\D/g, "").slice(-4) || "4242";
+    const brandName = isMpesa ? "M-PESA" : cardBrand;
 
     try {
       const res = await fetch("/api/checkout/session", {
@@ -70,11 +84,11 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
             firstName,
             lastName,
             email,
-            phone,
+            phone: isMpesa && mpesaPhone ? mpesaPhone : phone,
             gender,
           },
-          cardLast4: cardNumber.replace(/\D/g, "").slice(-4) || "4242",
-          cardBrand,
+          cardLast4: last4,
+          cardBrand: brandName,
         }),
       });
 
@@ -177,7 +191,7 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="sarah.connor@example.com"
+                placeholder="brian.ochieng@gmail.com"
                 className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
               />
             </div>
@@ -192,7 +206,7 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+1 (555) 301-4491"
+                  placeholder="+254 712 345 678"
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
                 />
               </div>
@@ -262,54 +276,117 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
               </div>
             )}
 
-            {/* Card Inputs */}
+            {/* Payment Method Selector */}
             <div className="space-y-3">
-              <div>
-                <label className="block text-[11px] font-bold text-[#8C9390] uppercase tracking-wider mb-1">
-                  Card Number
-                </label>
-                <div className="relative">
-                  <CreditCard className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C9390]" />
-                  <input
-                    type="text"
-                    required
-                    value={cardNumber}
-                    onChange={(e) => setCardNumber(e.target.value)}
-                    placeholder="4242 •••• •••• 4242"
-                    className="w-full pl-10 pr-4 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs font-mono text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
-                  />
-                </div>
+              <span className="text-[11px] font-bold text-[#8C9390] uppercase tracking-wider block">
+                Select Payment Method
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentOption("MPESA")}
+                  className={`py-2.5 px-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 border transition-all ${
+                    paymentOption === "MPESA"
+                      ? "bg-[#111315] border-[#C8FF3D] text-[#C8FF3D] shadow"
+                      : "bg-[#111315] border-[#8C9390]/20 text-[#8C9390] hover:text-[#F4F3EE]"
+                  }`}
+                >
+                  <Smartphone className="w-4 h-4" />
+                  <span>Safaricom M-Pesa</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentOption("CARD")}
+                  className={`py-2.5 px-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 border transition-all ${
+                    paymentOption === "CARD"
+                      ? "bg-[#111315] border-[#C8FF3D] text-[#C8FF3D] shadow"
+                      : "bg-[#111315] border-[#8C9390]/20 text-[#8C9390] hover:text-[#F4F3EE]"
+                  }`}
+                >
+                  <CreditCard className="w-4 h-4" />
+                  <span>Debit / Credit Card</span>
+                </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-[11px] font-bold text-[#8C9390] uppercase tracking-wider mb-1">
-                    Expiration (MM/YY)
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={cardExpiry}
-                    onChange={(e) => setCardExpiry(e.target.value)}
-                    placeholder="12/28"
-                    className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs font-mono text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
-                  />
+              {/* M-PESA PROMPT */}
+              {paymentOption === "MPESA" ? (
+                <div className="space-y-3 pt-1">
+                  <div>
+                    <label className="block text-[11px] font-bold text-[#8C9390] uppercase tracking-wider mb-1">
+                      M-Pesa Mobile Number
+                    </label>
+                    <div className="relative">
+                      <Smartphone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-400" />
+                      <input
+                        type="tel"
+                        required
+                        value={mpesaPhone}
+                        onChange={(e) => setMpesaPhone(e.target.value)}
+                        placeholder="0712 345 678 or +254 712 345 678"
+                        className="w-full pl-10 pr-4 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs font-mono text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
+                      />
+                    </div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-[11px] text-emerald-300 space-y-1">
+                    <p className="font-bold flex items-center gap-1.5">
+                      <Zap className="w-3.5 h-3.5 text-emerald-400" /> Instant STK Push Prompt
+                    </p>
+                    <p className="text-[#8C9390]">
+                      A secure PIN prompt will appear on your Safaricom mobile handset. Enter your secret M-Pesa PIN to activate your membership instantly.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-[#8C9390] uppercase tracking-wider mb-1">
-                    Security CVC
-                  </label>
-                  <input
-                    type="password"
-                    maxLength={4}
-                    required
-                    value={cardCvc}
-                    onChange={(e) => setCardCvc(e.target.value)}
-                    placeholder="123"
-                    className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs font-mono text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
-                  />
+              ) : (
+                /* Card Inputs */
+                <div className="space-y-3 pt-1">
+                  <div>
+                    <label className="block text-[11px] font-bold text-[#8C9390] uppercase tracking-wider mb-1">
+                      Card Number
+                    </label>
+                    <div className="relative">
+                      <CreditCard className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C9390]" />
+                      <input
+                        type="text"
+                        required
+                        value={cardNumber}
+                        onChange={(e) => setCardNumber(e.target.value)}
+                        placeholder="4242 •••• •••• 4242"
+                        className="w-full pl-10 pr-4 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs font-mono text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-bold text-[#8C9390] uppercase tracking-wider mb-1">
+                        Expiration (MM/YY)
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={cardExpiry}
+                        onChange={(e) => setCardExpiry(e.target.value)}
+                        placeholder="12/28"
+                        className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs font-mono text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-bold text-[#8C9390] uppercase tracking-wider mb-1">
+                        Security CVC
+                      </label>
+                      <input
+                        type="password"
+                        maxLength={4}
+                        required
+                        value={cardCvc}
+                        onChange={(e) => setCardCvc(e.target.value)}
+                        placeholder="123"
+                        className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs font-mono text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="flex gap-2.5 pt-2">

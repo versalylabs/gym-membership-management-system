@@ -5,11 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(amount: number, symbol: string = "$"): string {
-  return `${symbol}${amount.toLocaleString("en-US", {
+export function formatCurrency(amount: number, symbol: string = "KSh"): string {
+  const cleanSymbol = (symbol || "KSh").trim();
+  const formattedNumber = Number(amount || 0).toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  })}`;
+  });
+  return cleanSymbol.length > 1 ? `${cleanSymbol} ${formattedNumber}` : `${cleanSymbol}${formattedNumber}`;
 }
 
 export function formatDate(date: Date | string | null | undefined): string {

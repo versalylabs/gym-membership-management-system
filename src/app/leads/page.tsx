@@ -322,7 +322,7 @@ export default function LeadsPage() {
                   <input
                     type="tel"
                     required
-                    placeholder="+1 (555) 019-2834"
+                    placeholder="+254 712 345 678"
                     value={newLead.phone}
                     onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none placeholder-[#8C9390]/50 font-mono"

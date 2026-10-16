@@ -28,7 +28,7 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
-  const [email, setEmail] = useState("manager@pulsegym.com");
+  const [email, setEmail] = useState("manager@pulsefitness.co.ke");
   const [password, setPassword] = useState("pulse123");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);

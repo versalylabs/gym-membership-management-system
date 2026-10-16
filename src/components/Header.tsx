@@ -159,8 +159,8 @@ export default function Header({ onOpenMobile }: HeaderProps) {
             <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-[#202427] border border-[#8C9390]/25 shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95">
               {/* User details header */}
               <div className="p-3 rounded-xl bg-[#111315] border border-[#8C9390]/20 mb-2">
-                <p className="text-xs font-black text-[#F4F3EE]">{user?.name || "Alex Davis"}</p>
-                <p className="text-[11px] text-[#8C9390] truncate">{user?.email || "manager@pulsegym.com"}</p>
+                <p className="text-xs font-black text-[#F4F3EE]">{user?.name || "Alex Kiprotich"}</p>
+                <p className="text-[11px] text-[#8C9390] truncate">{user?.email || "manager@pulsefitness.co.ke"}</p>
                 <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#C8FF3D]/10 border border-[#C8FF3D]/30 text-[10px] font-black text-[#C8FF3D]">
                   <ShieldCheck className="w-3 h-3" />
                   <span>{user?.role || "MANAGER"}</span>

@@ -43,7 +43,7 @@ export default function ClassesPage() {
   const [classForm, setClassForm] = useState({
     title: "",
     description: "",
-    instructorName: "Marcus Vance",
+    instructorName: "Brian Kipchumba",
     startTime: "07:00 AM",
     endTime: "08:00 AM",
     daysOfWeek: "MON,WED,FRI",
@@ -97,7 +97,7 @@ export default function ClassesPage() {
         setClassForm({
           title: "",
           description: "",
-          instructorName: "Marcus Vance",
+          instructorName: "Brian Kipchumba",
           startTime: "07:00 AM",
           endTime: "08:00 AM",
           daysOfWeek: "MON,WED,FRI",

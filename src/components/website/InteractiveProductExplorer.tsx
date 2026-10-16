@@ -155,7 +155,7 @@ export default function InteractiveProductExplorer() {
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800">
                   <span className="text-[10px] font-bold text-slate-400 uppercase">Monthly MRR</span>
-                  <p className="text-xl font-black text-amber-400 mt-1">$14,850</p>
+                  <p className="text-xl font-black text-amber-400 mt-1">KSh 1,485,000</p>
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800">
                   <span className="text-[10px] font-bold text-slate-400 uppercase">Active Leads</span>
@@ -171,7 +171,7 @@ export default function InteractiveProductExplorer() {
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
                   <div className="flex items-center gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                    <span className="font-bold text-white">Marcus Vance (MEM-1001)</span>
+                    <span className="font-bold text-white">Brian Ochieng (PLS-1001)</span>
                     <span className="text-[11px] text-slate-400">&bull; VIP All-Access</span>
                   </div>
                   <span className="text-emerald-400 font-mono text-[11px]">Just Now (Kiosk)</span>
@@ -179,7 +179,7 @@ export default function InteractiveProductExplorer() {
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
                   <div className="flex items-center gap-2.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                    <span className="font-bold text-white">Elena Rostova (MEM-1003)</span>
+                    <span className="font-bold text-white">Faith Chebet (PLS-1002)</span>
                     <span className="text-[11px] text-slate-400">&bull; Standard Plan</span>
                   </div>
                   <span className="text-slate-400 font-mono text-[11px]">4 mins ago</span>
@@ -197,11 +197,11 @@ export default function InteractiveProductExplorer() {
                     className="w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl text-white shadow"
                     style={{ backgroundColor: brand.primaryColor }}
                   >
-                    MV
+                    BO
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-lg font-black text-white">Marcus Vance</h3>
+                      <h3 className="text-lg font-black text-white">Brian Ochieng</h3>
                       <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">
                         ACTIVE ATHLETE
                       </span>
@@ -210,7 +210,7 @@ export default function InteractiveProductExplorer() {
                       </span>
                     </div>
                     <p className="text-xs text-slate-400 mt-0.5">
-                      marcus@ironpeak.demo &bull; +1 (555) 349-2011 &bull; ID: MEM-1001
+                      brian.o@pulse.co.ke &bull; +254 722 349 201 &bull; ID: PLS-1001
                     </p>
                   </div>
                 </div>
@@ -226,8 +226,8 @@ export default function InteractiveProductExplorer() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                 <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
                   <span className="font-bold text-slate-300 uppercase block">Emergency & Safety</span>
-                  <p className="text-slate-400">Contact: Sarah Vance (Spouse)</p>
-                  <p className="text-slate-400">Emergency Tel: +1 (555) 902-1144</p>
+                  <p className="text-slate-400">Contact: Grace Ochieng (Spouse)</p>
+                  <p className="text-slate-400">Emergency Tel: +254 722 000 111</p>
                   <span className="inline-block px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-bold">
                     PAR-Q Cleared ✓
                   </span>
@@ -236,8 +236,8 @@ export default function InteractiveProductExplorer() {
                 <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
                   <span className="font-bold text-slate-300 uppercase block">Training Metrics</span>
                   <p className="text-slate-400">Total Check-Ins: <strong className="text-white">48 visits</strong></p>
-                  <p className="text-slate-400">Favorite Time: <strong className="text-white">06:00 AM (HIIT)</strong></p>
-                  <p className="text-slate-400">Lifetime Spend: <strong className="text-emerald-400">$899.00</strong></p>
+                  <p className="text-slate-400">Favorite Time: <strong className="text-white">06:30 AM (HIIT)</strong></p>
+                  <p className="text-slate-400">Lifetime Spend: <strong className="text-emerald-400">KSh 75,000</strong></p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
@@ -288,15 +288,15 @@ export default function InteractiveProductExplorer() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center p-2 rounded-xl bg-slate-900 border border-slate-800">
                     <span>Whey Protein Isolate 2kg</span>
-                    <span className="font-bold text-white">$64.99</span>
+                    <span className="font-bold text-white">KSh 6,500</span>
                   </div>
                   <div className="flex justify-between items-center p-2 rounded-xl bg-slate-900 border border-slate-800">
                     <span>Pre-Workout Explosive Energy</span>
-                    <span className="font-bold text-white">$38.50</span>
+                    <span className="font-bold text-white">KSh 3,850</span>
                   </div>
                   <div className="flex justify-between items-center p-2 rounded-xl bg-slate-900 border border-slate-800">
                     <span>Electrolyte Hydration Drink</span>
-                    <span className="font-bold text-white">$4.50</span>
+                    <span className="font-bold text-white">KSh 200</span>
                   </div>
                 </div>
               </div>
@@ -308,20 +308,21 @@ export default function InteractiveProductExplorer() {
                 <div className="space-y-1.5 border-b border-slate-800 pb-2">
                   <div className="flex justify-between text-slate-400">
                     <span>Subtotal:</span>
-                    <span>$107.99</span>
+                    <span>KSh 10,550</span>
                   </div>
                   <div className="flex justify-between text-slate-400">
-                    <span>Tax (8%):</span>
-                    <span>$8.64</span>
+                    <span>VAT (16%):</span>
+                    <span>KSh 1,688</span>
                   </div>
                   <div className="flex justify-between font-black text-white text-sm">
                     <span>Total Due:</span>
-                    <span className="text-emerald-400">$116.63</span>
+                    <span className="text-emerald-400">KSh 12,238</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 rounded bg-slate-900 text-slate-300 font-bold">CARD</span>
-                  <span className="px-3 py-1 rounded bg-slate-900 text-slate-400">CASH</span>
+                  <span className="px-3 py-1 rounded bg-slate-900 text-[#C8FF3D] font-bold">M-PESA</span>
+                  <span className="px-3 py-1 rounded bg-slate-900 text-slate-300">CASH</span>
+                  <span className="px-3 py-1 rounded bg-slate-900 text-slate-400">CARD</span>
                   <span className="ml-auto text-[10px] text-emerald-400 font-mono">
                     Printable Tax Receipt Ready ✓
                   </span>
@@ -343,7 +344,7 @@ export default function InteractiveProductExplorer() {
                     <span className="text-slate-400">06:00 AM</span>
                   </div>
                   <h4 className="font-bold text-white">Dawn Patrol HIIT</h4>
-                  <p className="text-[11px] text-slate-400">Coach: Marcus Vance</p>
+                  <p className="text-[11px] text-slate-400">Coach: Brian Kipchumba</p>
                   <p className="text-[10px] text-emerald-400 font-bold">18 / 20 spots booked (90%)</p>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-1.5">
@@ -352,7 +353,7 @@ export default function InteractiveProductExplorer() {
                     <span className="text-slate-400">07:30 AM</span>
                   </div>
                   <h4 className="font-bold text-white">Athletic Conditioning</h4>
-                  <p className="text-[11px] text-slate-400">Coach: Sarah Connor</p>
+                  <p className="text-[11px] text-slate-400">Coach: Faith Chebet</p>
                   <p className="text-[10px] text-emerald-400 font-bold">14 / 22 spots booked (63%)</p>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-1.5">

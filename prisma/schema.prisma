@@ -14,13 +14,13 @@ model GymSetting {
   logoUrl         String?  @default("/logo.png")
   primaryColor    String   @default("#C8FF3D") // Chartreuse Volt default
   accentColor     String   @default("#8C9390") // Grey Olive
-  currencySymbol  String   @default("$")
-  currencyCode    String   @default("USD")
-  taxRate         Float    @default(0.0)
-  contactEmail    String   @default("contact@pulsegym.com")
-  phone           String   @default("+1 (555) 892-4411")
-  address         String   @default("450 Olympus Way, Suite 100, Austin, TX")
-  website         String   @default("https://pulsegym.com")
+  currencySymbol  String   @default("KSh")
+  currencyCode    String   @default("KES")
+  taxRate         Float    @default(16.0)
+  contactEmail    String   @default("contact@pulsefitness.co.ke")
+  phone           String   @default("+254 712 345 678")
+  address         String   @default("Woodvale Grove, Westlands, Nairobi, Kenya")
+  website         String   @default("https://pulsefitness.co.ke")
   kioskPin        String   @default("1234")
   updatedAt       DateTime @updatedAt
   createdAt       DateTime @default(now())
@@ -125,8 +125,8 @@ model Payment {
   subscriptionId        String?
   subscription          Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
   amount                Float
-  currency              String        @default("USD")
-  method                String        @default("CARD") // CASH, CARD, STRIPE, TRANSFER
+  currency              String        @default("KES")
+  method                String        @default("MPESA") // MPESA, CASH, CARD, STRIPE, TRANSFER
   status                String        @default("PAID") // PAID, PENDING, REFUNDED, FAILED
   receiptNumber         String        @unique
   invoiceNumber         String?
@@ -216,7 +216,7 @@ model Sale {
   member        Member?    @relation(fields: [memberId], references: [id], onDelete: SetNull)
   staffId       String?
   totalAmount   Float
-  paymentMethod String     @default("CASH") // CASH, CARD, MEMBER_ACCOUNT
+  paymentMethod String     @default("MPESA") // MPESA, CASH, CARD, MEMBER_ACCOUNT, TRANSFER
   notes         String?
   items         SaleItem[]
   createdAt     DateTime   @default(now())

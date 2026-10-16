@@ -48,7 +48,7 @@ export default function MembershipsPage() {
 
   // Assign Form State
   const [assignMemberId, setAssignMemberId] = useState("");
-  const [assignPaymentMethod, setAssignPaymentMethod] = useState("CARD");
+  const [assignPaymentMethod, setAssignPaymentMethod] = useState("MPESA");
   const [assignSuccess, setAssignSuccess] = useState(false);
 
   const loadPlans = async () => {
@@ -644,9 +644,10 @@ export default function MembershipsPage() {
                     onChange={(e) => setAssignPaymentMethod(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
                   >
-                    <option value="CARD">Credit / Debit Card</option>
+                    <option value="MPESA">Safaricom M-Pesa</option>
                     <option value="CASH">Cash (Front Desk)</option>
-                    <option value="TRANSFER">Bank Transfer</option>
+                    <option value="CARD">Credit / Debit Card</option>
+                    <option value="TRANSFER">Bank Transfer / Pesalink</option>
                   </select>
                 </div>
 

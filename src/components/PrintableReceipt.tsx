@@ -86,9 +86,10 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
         ]);
 
   const totalAmount = props.total ?? payment?.amount ?? payment?.total ?? 0;
-  const subtotalAmount = props.subtotal ?? payment?.subtotal ?? (totalAmount * 0.92);
+  const taxRateDecimal = ((brand.taxRate ?? 16) > 0 ? (brand.taxRate ?? 16) : 16) / 100;
+  const subtotalAmount = props.subtotal ?? payment?.subtotal ?? (totalAmount / (1 + taxRateDecimal));
   const tax = props.taxAmount ?? payment?.taxAmount ?? (totalAmount - subtotalAmount);
-  const payMethod = props.paymentMethod || payment?.method || payment?.paymentMethod || "CARD";
+  const payMethod = props.paymentMethod || payment?.method || payment?.paymentMethod || "MPESA";
   const tendered = props.amountTendered ?? payment?.amountTendered;
   const change = props.changeDue ?? payment?.changeDue;
 
@@ -133,8 +134,11 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
             <p className="text-xs font-medium text-slate-500">
               {brand.tagline}
             </p>
+            <p className="text-[11px] text-slate-500 font-medium">
+              {brand.address || "Woodvale Grove, Westlands, Nairobi, Kenya"}
+            </p>
             <p className="text-[11px] text-slate-400">
-              Tax ID / Reg: #8942-TAX-CA &bull; Tel: +1 (800) 555-IRON
+              KRA PIN: P051894200Z &bull; Tel: {brand.phone || "+254 712 345 678"}
             </p>
           </div>
 

@@ -45,32 +45,39 @@ export default function TrainersSection({ onOpenConsult }: TrainersSectionProps)
 
   const getTrainerDetails = (trainer: any) => {
     const name = trainer.name || "";
-    if (name.includes("Alex")) {
+    if (name.includes("Alex") || name.includes("Kiprotich")) {
       return {
-        specialty: "Head Strength Coach & Director",
-        certifications: "CSCS • USAW Senior Coach",
-        bio: "Former collegiate strength director specializing in periodization, biomechanics, and competitive barbell athletics.",
+        specialty: "Head of Strength & Conditioning",
+        certifications: "CSCS • Kenya Rugby Sevens Coach",
+        bio: "Director of performance specializing in speed periodization, Olympic lifting mechanics, and competitive athlete conditioning.",
       };
     }
-    if (name.includes("Marcus")) {
+    if (name.includes("Brian") || name.includes("Kipchumba") || name.includes("Marcus")) {
       return {
-        specialty: "Powerlifting & Hypertrophy",
-        certifications: "CSCS • USAW Level 2",
-        bio: "Specializing in heavy compound lifts, CNS recovery protocols, and competitive powerlifting periodization.",
+        specialty: "Powerlifting & Barbell Power",
+        certifications: "CSCS • Weightlifting Kenya Coach",
+        bio: "Specializing in heavy compound lifts, CNS recovery protocols, and explosive athletic power periodization.",
       };
     }
-    if (name.includes("Maya")) {
+    if (name.includes("Faith") || name.includes("Chebet") || name.includes("Sarah")) {
       return {
-        specialty: "Athletic Mobility & Vinyasa",
+        specialty: "High-Intensity & Endurance Conditioning",
+        certifications: "NASM-CPT • Athletics Kenya Coach",
+        bio: "Metabolic conditioning and endurance specialist focused on rapid fat loss, sprint biomechanics, and functional stamina.",
+      };
+    }
+    if (name.includes("Wanjiku") || name.includes("Mwangi") || name.includes("Maya") || name.includes("Elena")) {
+      return {
+        specialty: "Athletic Mobility & Vinyasa Yoga",
         certifications: "RYT-500 • Postural Specialist",
-        bio: "Integrating power yoga, deep fascia release, and joint mobility to keep heavy lifters mobile, agile, and pain-free.",
+        bio: "Integrating power yoga, deep fascia release, and joint mobility to keep lifters and runners agile, mobile, and pain-free.",
       };
     }
-    if (name.includes("Devon") || name.includes("Sarah")) {
+    if (name.includes("Dennis") || name.includes("Otieno") || name.includes("Devon")) {
       return {
-        specialty: "Combat Conditioning & Striking",
+        specialty: "Combat Conditioning & Hypertrophy",
         certifications: "ISSA Master Trainer • Boxing Coach",
-        bio: "Coaching fighters and everyday lifters with precision nutrition planning and explosive striking conditioning.",
+        bio: "Coaching fighters and everyday lifters with precision sports nutrition and explosive striking conditioning.",
       };
     }
     return {
@@ -200,30 +207,30 @@ export default function TrainersSection({ onOpenConsult }: TrainersSectionProps)
 const defaultTrainers = [
   {
     id: "tr-1",
-    name: "Marcus Vance",
-    specialty: "Powerlifting & Hypertrophy",
-    certifications: "CSCS • USAW Level 2",
-    bio: "Former collegiate strength coach specializing in heavy compound lifts, periodization, and injury rehabilitation.",
+    name: "Brian Kipchumba",
+    specialty: "Powerlifting & Barbell Power",
+    certifications: "CSCS • Weightlifting Kenya Coach",
+    bio: "Head strength coach specializing in heavy compound lifts, CNS recovery protocols, and explosive athletic power.",
   },
   {
     id: "tr-2",
-    name: "Sarah Connor",
-    specialty: "High-Intensity & Conditioning",
-    certifications: "NASM-CPT • FMS Level 1",
-    bio: "Endurance and metabolic conditioning specialist focused on fat loss, sprint mechanics, and functional mobility.",
+    name: "Faith Chebet",
+    specialty: "High-Intensity & Endurance Conditioning",
+    certifications: "NASM-CPT • Athletics Kenya Coach",
+    bio: "Endurance and metabolic conditioning specialist focused on body composition, sprint mechanics, and functional mobility.",
   },
   {
     id: "tr-3",
-    name: "Elena Rostova",
-    specialty: "Athletic Mobility & Core",
+    name: "Wanjiku Mwangi",
+    specialty: "Athletic Mobility & Vinyasa Yoga",
     certifications: "RYT-500 • Postural Specialist",
-    bio: "Integrating power yoga, deep fascia release, and joint mobility to keep heavy lifters pain-free and supple.",
+    bio: "Integrating power yoga, deep fascia release, and joint mobility to keep heavy lifters pain-free, agile, and supple.",
   },
   {
     id: "tr-4",
-    name: "Devon Reed",
-    specialty: "Combat Sports & Bodybuilding",
+    name: "Dennis Otieno",
+    specialty: "Combat Fitness & Hypertrophy",
     certifications: "ISSA Master Trainer • Boxing Coach",
-    bio: "Coaching fighters and physique athletes with precision nutrition planning and explosive striking conditioning.",
+    bio: "Coaching fighters and physique athletes with precision sports nutrition and explosive striking conditioning.",
   },
 ];

@@ -263,7 +263,7 @@ export default function TrainersPage() {
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-[#F4F3EE]">{t.name}</h3>
-                      <p className="text-xs text-[#8C9390]">{t.role} &bull; {t.phone || "+1 (555) 018-9922"}</p>
+                      <p className="text-xs text-[#8C9390]">{t.role} &bull; {t.phone || "+254 712 345 678"}</p>
                       <p className="text-[11px] text-[#8C9390]/70 truncate max-w-[180px]">{t.email}</p>
                     </div>
                   </div>
@@ -295,7 +295,7 @@ export default function TrainersPage() {
                   <div className="p-3 rounded-2xl bg-[#111315] border border-[#8C9390]/20">
                     <span className="text-[#8C9390] text-[10px] uppercase font-semibold">Commission Rate</span>
                     <p className="text-base font-bold text-emerald-400 mt-0.5">
-                      {brand.currencySymbol}35.00 <span className="text-[10px] text-[#8C9390] font-normal">/ sess</span>
+                      {formatCurrency(1500, brand.currencySymbol)} <span className="text-[10px] text-[#8C9390] font-normal">/ sess</span>
                     </p>
                   </div>
                 </div>
@@ -445,7 +445,7 @@ export default function TrainersPage() {
                   Debiting will deduct <strong>1 session credit</strong> and update client history.
                 </p>
                 <p className="text-[#C8FF3D] font-medium">
-                  Trainer commission earned: {brand.currencySymbol}35.00
+                  Trainer commission earned: {formatCurrency(1500, brand.currencySymbol)}
                 </p>
               </div>
 
@@ -589,7 +589,7 @@ export default function TrainersPage() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Marcus Vance"
+                  placeholder="e.g. Brian Kipchumba"
                   value={newTrainerForm.name}
                   onChange={(e) => setNewTrainerForm({ ...newTrainerForm, name: e.target.value })}
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
@@ -614,7 +614,7 @@ export default function TrainersPage() {
                 <label className="block text-[#F4F3EE] font-semibold mb-1">Phone Number</label>
                 <input
                   type="text"
-                  placeholder="e.g. +1 (555) 392-1084"
+                  placeholder="e.g. +254 712 345 678"
                   value={newTrainerForm.phone}
                   onChange={(e) => setNewTrainerForm({ ...newTrainerForm, phone: e.target.value })}
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/30 rounded-xl text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"

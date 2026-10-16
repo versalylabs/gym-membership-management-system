@@ -44,7 +44,7 @@ export async function POST(req: Request) {
         data: {
           memberId: memberId || null,
           totalAmount: parseFloat(totalAmount),
-          paymentMethod: paymentMethod || "CASH",
+          paymentMethod: paymentMethod || "MPESA",
           notes: notes || "POS Front-Desk Register Sale",
         },
       });
@@ -74,8 +74,8 @@ export async function POST(req: Request) {
           data: {
             memberId,
             amount: parseFloat(totalAmount),
-            currency: "USD",
-            method: paymentMethod || "CASH",
+            currency: "KES",
+            method: paymentMethod || "MPESA",
             status: "PAID",
             receiptNumber,
             invoiceNumber: `INV-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,

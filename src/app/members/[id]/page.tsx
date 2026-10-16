@@ -56,7 +56,7 @@ export default function MemberDossierPage() {
 
   // Renewal Form
   const [renewPlanId, setRenewPlanId] = useState("");
-  const [renewPaymentMethod, setRenewPaymentMethod] = useState("CARD");
+  const [renewPaymentMethod, setRenewPaymentMethod] = useState("MPESA");
   const [renewAmount, setRenewAmount] = useState<number>(0);
   const [submittingAction, setSubmittingAction] = useState(false);
 
@@ -782,9 +782,10 @@ export default function MemberDossierPage() {
                   onChange={(e) => setRenewPaymentMethod(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/25 text-xs text-[#F4F3EE] focus:border-[#C8FF3D] outline-none"
                 >
-                  <option value="CARD" className="bg-[#111315] text-[#F4F3EE]">Credit / Debit Card</option>
+                  <option value="MPESA" className="bg-[#111315] text-[#F4F3EE]">Safaricom M-Pesa</option>
                   <option value="CASH" className="bg-[#111315] text-[#F4F3EE]">Cash at Desk</option>
-                  <option value="BANK_TRANSFER" className="bg-[#111315] text-[#F4F3EE]">Direct Bank Transfer</option>
+                  <option value="CARD" className="bg-[#111315] text-[#F4F3EE]">Credit / Debit Card</option>
+                  <option value="BANK_TRANSFER" className="bg-[#111315] text-[#F4F3EE]">Direct Bank Transfer / Pesalink</option>
                 </select>
               </div>
 

@@ -26,6 +26,7 @@ import {
   Layers,
   Coins,
   Edit2,
+  Smartphone,
 } from "lucide-react";
 
 export default function POSPage() {
@@ -41,8 +42,8 @@ export default function POSPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Cash tender state
-  const [paymentMethod, setPaymentMethod] = useState<"CASH" | "CARD" | "TRANSFER">("CARD");
+  // Cash / M-Pesa tender state
+  const [paymentMethod, setPaymentMethod] = useState<"MPESA" | "CASH" | "CARD" | "TRANSFER">("MPESA");
   const [cashTendered, setCashTendered] = useState<string>("");
   const [checkingOut, setCheckingOut] = useState(false);
 
@@ -62,8 +63,8 @@ export default function POSPage() {
     name: "",
     sku: "",
     category: "Supplements",
-    price: 29.99,
-    costPrice: 15.0,
+    price: 3500.0,
+    costPrice: 2000.0,
     stockQuantity: 25,
     minStockAlert: 5,
   });
@@ -553,10 +554,11 @@ export default function POSPage() {
               <span className="text-xs font-bold text-[#F4F3EE] uppercase tracking-wider block">
                 Tender Payment Method
               </span>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 {[
-                  { id: "CARD", label: "Card", icon: CreditCard },
+                  { id: "MPESA", label: "M-Pesa", icon: Smartphone },
                   { id: "CASH", label: "Cash", icon: Banknote },
+                  { id: "CARD", label: "Card", icon: CreditCard },
                   { id: "TRANSFER", label: "Transfer", icon: Coins },
                 ].map((m) => {
                   const isSelected = paymentMethod === m.id;
@@ -579,6 +581,18 @@ export default function POSPage() {
                 })}
               </div>
 
+              {/* M-Pesa Confirmation Note */}
+              {paymentMethod === "MPESA" && (
+                <div className="p-3 rounded-2xl bg-[#111315] border border-emerald-500/30 text-[11px] text-[#8C9390] space-y-1 animate-in fade-in duration-200">
+                  <p className="font-bold text-emerald-400 flex items-center gap-1.5">
+                    <Smartphone className="w-3.5 h-3.5" /> Safaricom M-Pesa Tender
+                  </p>
+                  <p>
+                    Verify member confirmation code or request send-money to gym Paybill/Till number. Receipt includes M-Pesa transaction tag.
+                  </p>
+                </div>
+              )}
+
               {/* Cash Change Calculator */}
               {paymentMethod === "CASH" && (
                 <div className="p-3.5 rounded-2xl bg-[#111315] border border-[#8C9390]/20 space-y-2 animate-in fade-in duration-200">
@@ -587,7 +601,7 @@ export default function POSPage() {
                   </label>
                   <input
                     type="number"
-                    placeholder="e.g. 50"
+                    placeholder="e.g. 5000"
                     value={cashTendered}
                     onChange={(e) => setCashTendered(e.target.value)}
                     className="w-full px-3 py-2 rounded-xl bg-[#202427] border border-[#8C9390]/25 text-xs text-[#F4F3EE] font-mono font-bold focus:border-[#C8FF3D] outline-none"

@@ -143,7 +143,7 @@ export default function ClassBookingModal({ cls, onClose }: ClassBookingModalPro
                   <input
                     type="tel"
                     required
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+254 712 345 678"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl bg-[#111315] border border-[#8C9390]/30 text-xs text-[#F4F3EE] placeholder-[#8C9390]/60 focus:outline-none focus:border-[#C8FF3D]"

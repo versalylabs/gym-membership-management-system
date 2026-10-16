@@ -71,9 +71,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const quickLogin = async (role: "MANAGER" | "RECEPTIONIST" | "TRAINER") => {
     const roleEmails: Record<string, string> = {
-      MANAGER: "manager@pulsegym.com",
-      RECEPTIONIST: "frontdesk@pulsegym.com",
-      TRAINER: "marcus.vance@pulsegym.com",
+      MANAGER: "manager@pulsefitness.co.ke",
+      RECEPTIONIST: "frontdesk@pulsefitness.co.ke",
+      TRAINER: "brian.k@pulsefitness.co.ke",
     };
 
     const email = roleEmails[role];

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useBrand } from "@/lib/brand-context";
+import { formatCurrency } from "@/lib/utils";
 import {
   Activity,
   Palette,
@@ -179,10 +180,11 @@ export default function SettingsPage() {
                   onChange={handleChange}
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
                 >
+                  <option value="KSh" className="bg-[#111315] text-[#F4F3EE]">KSh (Kenyan Shilling - KSh)</option>
+                  <option value="KES" className="bg-[#111315] text-[#F4F3EE]">KES (Kenyan Shilling - KES)</option>
                   <option value="$" className="bg-[#111315] text-[#F4F3EE]">$ (USD / AUD / CAD / SGD)</option>
                   <option value="€" className="bg-[#111315] text-[#F4F3EE]">€ (EUR - Eurozone)</option>
                   <option value="£" className="bg-[#111315] text-[#F4F3EE]">£ (GBP - British Pound)</option>
-                  <option value="KES" className="bg-[#111315] text-[#F4F3EE]">KES (Kenyan Shilling)</option>
                   <option value="₹" className="bg-[#111315] text-[#F4F3EE]">₹ (INR - Indian Rupee)</option>
                   <option value="AED" className="bg-[#111315] text-[#F4F3EE]">AED (Emirati Dirham)</option>
                   <option value="ZAR" className="bg-[#111315] text-[#F4F3EE]">R (South African Rand)</option>
@@ -276,7 +278,7 @@ export default function SettingsPage() {
                 <div className="mt-6 pt-4 border-t border-[#8C9390]/20 space-y-2.5">
                   <div className="flex justify-between text-xs">
                     <span className="text-[#8C9390]">Sample Member:</span>
-                    <span className="font-bold text-[#F4F3EE]">Sarah Connor</span>
+                    <span className="font-bold text-[#F4F3EE]">Brian Ochieng</span>
                   </div>
                   <div className="flex justify-between text-xs">
                     <span className="text-[#8C9390]">Membership Tier:</span>
@@ -290,7 +292,7 @@ export default function SettingsPage() {
                   <div className="flex justify-between text-xs">
                     <span className="text-[#8C9390]">Monthly Dues:</span>
                     <span className="font-bold text-emerald-400 font-mono">
-                      {formData.currencySymbol}99.00 / mo
+                      {formatCurrency(6500, formData.currencySymbol)} / mo
                     </span>
                   </div>
                 </div>

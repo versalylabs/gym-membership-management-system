@@ -24,27 +24,27 @@ export default function ReviewsAndFaq() {
 
   const testimonials = [
     {
-      name: "Marcus Sterling",
-      achievement: "Gained 14 lbs lean muscle in 6 months",
+      name: "Brian Kiprop",
+      achievement: "Gained 6 kg lean muscle in 6 months",
       rating: 5,
       review:
-        "The powerlifting section and Eleiko barbells are unmatched. Coaches actually know biomechanics and helped me hit a 500 lb deadlift safely.",
-      tag: "Strength Lifter",
+        "The Olympic lifting platform and Eleiko barbells in Westlands are world-class. Coaches actually know biomechanics and helped me hit a 220 kg deadlift cleanly.",
+      tag: "Strength & Power",
     },
     {
-      name: "Jessica Rivera",
-      achievement: "Dropped 24 lbs & crushed first half-marathon",
+      name: "Faith Wanjiku",
+      achievement: "Dropped 12 kg & crushed Nairobi City Half-Marathon",
       rating: 5,
       review:
-        "The morning HIIT sessions and contrast saunas changed my daily energy completely. Cleanest locker rooms and most supportive community in town.",
-      tag: "HIIT & Cardio",
+        "The 6:00 AM high-altitude HIIT sessions and recovery sauna transformed my endurance. Cleanest locker rooms and most supportive community in Nairobi.",
+      tag: "Endurance & HIIT",
     },
     {
-      name: "David Chen",
-      achievement: "Recovered from lower back disc injury",
+      name: "Kevin Otieno",
+      achievement: "Recovered from lower back rugby strain",
       rating: 5,
       review:
-        "Coach Marcus and the mobility team tailored my movements so I could lift without pain again. The recovery lounge cold plunge is heaven after leg day.",
+        "Coach Brian and the mobility team tailored my movements so I could train pain-free again. The recovery lounge cold plunge is unmatched after hard sessions.",
       tag: "Mobility & Recovery",
     },
   ];
@@ -56,7 +56,7 @@ export default function ReviewsAndFaq() {
     },
     {
       q: "Are group fitness classes included in the membership?",
-      a: "Yes! Our VIP All-Access and Annual tiers include unlimited group fitness sessions (HIIT, Strength clinics, Power Yoga, Boxing). Standard tier members can drop in with a discounted $10 class pass.",
+      a: "Yes! Our VIP All-Access and Annual tiers include unlimited group fitness sessions (HIIT, Strength clinics, Power Yoga, Boxing). Standard tier members can drop in with a discounted KSh 1,000 class pass.",
     },
     {
       q: "Can I bring a guest or workout partner?",
@@ -216,8 +216,8 @@ export default function ReviewsAndFaq() {
                     <MapPin className="w-4 h-4 text-[#C8FF3D] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-bold text-[#F4F3EE]">{brand.gymName} Performance HQ</p>
-                      <p className="text-[#8C9390]">450 Olympus Way, Suite 100</p>
-                      <p className="text-[#8C9390]">Austin, TX 78701</p>
+                      <p className="text-[#8C9390]">{brand.address || "Woodvale Grove, Westlands"}</p>
+                      <p className="text-[#8C9390]">Nairobi, Kenya</p>
                     </div>
                   </div>
 
@@ -235,8 +235,8 @@ export default function ReviewsAndFaq() {
                     <Phone className="w-4 h-4 text-[#C8FF3D] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-bold text-[#F4F3EE]">Contact & Support</p>
-                      <p className="text-[#8C9390]">Desk: {brand.phone}</p>
-                      <p className="text-[#8C9390]">Email: {brand.contactEmail}</p>
+                      <p className="text-[#8C9390]">Desk: {brand.phone || "+254 712 345 678"}</p>
+                      <p className="text-[#8C9390]">Email: {brand.contactEmail || "contact@pulsefitness.co.ke"}</p>
                     </div>
                   </div>
                 </div>

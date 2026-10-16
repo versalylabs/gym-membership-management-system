@@ -56,7 +56,7 @@ function MemberOnboardingContent() {
     // Step 3: Membership Plan & Payment
     planId: "",
     startDate: new Date().toISOString().split("T")[0],
-    paymentMethod: "CARD",
+    paymentMethod: "MPESA",
     amountPaid: 0,
 
     // Step 4: Waiver
@@ -338,7 +338,7 @@ function MemberOnboardingContent() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="+1 (555) 019-2834"
+                  placeholder="+254 712 345 678"
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D] placeholder-[#8C9390]/50 font-mono"
                   required
                 />
@@ -383,7 +383,7 @@ function MemberOnboardingContent() {
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  placeholder="123 Main Street, Apt 4B, Austin, TX"
+                  placeholder="e.g. Rhapta Road, Westlands, Nairobi"
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D] placeholder-[#8C9390]/50"
                 />
               </div>
@@ -409,7 +409,7 @@ function MemberOnboardingContent() {
                   name="emergencyName"
                   value={formData.emergencyName}
                   onChange={handleChange}
-                  placeholder="e.g. Marie Kreutz"
+                  placeholder="e.g. Grace Ochieng"
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D] placeholder-[#8C9390]/50"
                   required
                 />
@@ -424,7 +424,7 @@ function MemberOnboardingContent() {
                   name="emergencyPhone"
                   value={formData.emergencyPhone}
                   onChange={handleChange}
-                  placeholder="+1 (555) 998-1122"
+                  placeholder="+254 722 000 111"
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D] placeholder-[#8C9390]/50 font-mono"
                   required
                 />
@@ -561,10 +561,11 @@ function MemberOnboardingContent() {
                   onChange={handleChange}
                   className="w-full px-3.5 py-2.5 bg-[#111315] border border-[#8C9390]/25 rounded-xl text-xs text-[#F4F3EE] focus:outline-none focus:border-[#C8FF3D]"
                 >
-                  <option value="CARD" className="bg-[#111315] text-[#F4F3EE]">Credit / Debit Card (Swipe)</option>
+                  <option value="MPESA" className="bg-[#111315] text-[#F4F3EE]">Safaricom M-Pesa (Mobile Money)</option>
                   <option value="CASH" className="bg-[#111315] text-[#F4F3EE]">Cash (Front Desk)</option>
-                  <option value="TRANSFER" className="bg-[#111315] text-[#F4F3EE]">Bank Transfer / EFT</option>
-                  <option value="STRIPE" className="bg-[#111315] text-[#F4F3EE]">Online Payment (Stripe)</option>
+                  <option value="CARD" className="bg-[#111315] text-[#F4F3EE]">Credit / Debit Card (PDQ / POS)</option>
+                  <option value="TRANSFER" className="bg-[#111315] text-[#F4F3EE]">Bank Transfer / EFT / Pesalink</option>
+                  <option value="STRIPE" className="bg-[#111315] text-[#F4F3EE]">Online Payment (Portal)</option>
                 </select>
               </div>
 
