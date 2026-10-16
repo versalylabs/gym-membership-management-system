@@ -16,6 +16,7 @@ import {
   Dumbbell,
   User,
   Menu,
+  Activity,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -66,7 +67,7 @@ export default function Header({ onOpenMobile }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-20 flex items-center justify-between h-16 px-3 sm:px-6 border-b border-[#8C9390]/20 bg-[#202427]/90 backdrop-blur gap-2 sm:gap-4">
-      {/* Left: Mobile Drawer Trigger + Search Bar */}
+      {/* Left: Mobile Drawer Trigger + Logo + Search Bar */}
       <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 max-w-lg">
         {onOpenMobile && (
           <button
@@ -78,6 +79,20 @@ export default function Header({ onOpenMobile }: HeaderProps) {
             <Menu className="w-5 h-5 text-[#C8FF3D]" />
           </button>
         )}
+
+        {/* Mobile Brand Logo Icon */}
+        <Link href="/dashboard" className="md:hidden flex items-center shrink-0 group" title={brand.gymName}>
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center font-black shadow-md transition-transform group-hover:scale-105"
+            style={{
+              backgroundColor: brand.primaryColor,
+              color: "#111315",
+              boxShadow: `0 0 12px ${brand.primaryColor}50`,
+            }}
+          >
+            <Activity className="w-4 h-4 stroke-[2.5]" />
+          </div>
+        </Link>
 
         <div className="relative w-full max-w-[190px] sm:max-w-xs md:max-w-sm lg:w-96 min-w-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C9390]" />

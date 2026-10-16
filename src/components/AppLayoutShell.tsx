@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useBrand } from "@/lib/brand-context";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 
@@ -11,12 +12,36 @@ export default function AppLayoutShell({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { brand } = useBrand();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Automatically close mobile menu whenever route changes
+  // Automatically close mobile menu & update browser tab title
   useEffect(() => {
     setMobileMenuOpen(false);
-  }, [pathname]);
+
+    const titles: Record<string, string> = {
+      "/": `${brand.gymName} | Elite Performance Club`,
+      "/dashboard": `Dashboard | ${brand.gymName}`,
+      "/members": `Members Directory | ${brand.gymName}`,
+      "/members/new": `Register Athlete | ${brand.gymName}`,
+      "/memberships": `Membership Plans | ${brand.gymName}`,
+      "/attendance": `Attendance Logs | ${brand.gymName}`,
+      "/attendance/kiosk": `Turnstile Kiosk | ${brand.gymName}`,
+      "/classes": `Classes Timetable | ${brand.gymName}`,
+      "/trainers": `Trainer Hub | ${brand.gymName}`,
+      "/pos": `POS & Sales Register | ${brand.gymName}`,
+      "/leads": `Sales & Leads Pipeline | ${brand.gymName}`,
+      "/reports": `Executive Reports | ${brand.gymName}`,
+      "/settings": `Facility Settings | ${brand.gymName}`,
+      "/login": `Staff Sign In | ${brand.gymName}`,
+    };
+
+    const matchedKey = Object.keys(titles).find((key) =>
+      key === "/" ? pathname === "/" : pathname === key || pathname.startsWith(`${key}/`)
+    );
+
+    document.title = (matchedKey && titles[matchedKey]) || `${brand.gymName} | Performance Club`;
+  }, [pathname, brand.gymName]);
 
   // 1. Fullscreen Kiosk Mode & Login Page (clean, no navigation wrapper)
   if (pathname === "/attendance/kiosk" || pathname === "/login") {
