@@ -39,7 +39,7 @@ async function main() {
       taxRate: 16.0, // Standard Kenya VAT
       contactEmail: "versalylabs@gmail.com",
       phone: "+254 704 611 033 / +254 929 868 25",
-      address: "Woodvale Grove, Westlands, Nairobi, Kenya",
+      address: "Ruaraka, Nairobi, Kenya",
       website: "https://pulsefitness.co.ke",
       kioskPin: "1234",
     },

@@ -135,7 +135,7 @@ export default function PrintableReceipt(props: PrintableReceiptProps) {
               {brand.tagline}
             </p>
             <p className="text-[11px] text-slate-500 font-medium">
-              {brand.address || "Woodvale Grove, Westlands, Nairobi, Kenya"}
+              {brand.address || "Ruaraka, Nairobi, Kenya"}
             </p>
             <p className="text-[11px] text-slate-400">
               KRA PIN: P051894200Z &bull; Tel: {brand.phone || "+254 704 611 033 / +254 929 868 25"}

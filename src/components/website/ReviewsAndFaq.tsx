@@ -216,8 +216,7 @@ export default function ReviewsAndFaq() {
                     <MapPin className="w-4 h-4 text-[#C8FF3D] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-bold text-[#F4F3EE]">{brand.gymName} Performance HQ</p>
-                      <p className="text-[#8C9390]">{brand.address || "Woodvale Grove, Westlands"}</p>
-                      <p className="text-[#8C9390]">Nairobi, Kenya</p>
+                      <p className="text-[#8C9390]">{brand.address || "Ruaraka, Nairobi, Kenya"}</p>
                     </div>
                   </div>
 

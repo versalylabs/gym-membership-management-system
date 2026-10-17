@@ -20,7 +20,7 @@ export async function GET() {
           taxRate: 16.0,
           contactEmail: "versalylabs@gmail.com",
           phone: "+254 704 611 033 / +254 929 868 25",
-          address: "Woodvale Grove, Westlands, Nairobi, Kenya",
+          address: "Ruaraka, Nairobi, Kenya",
           website: "https://pulsefitness.co.ke",
         },
       });
@@ -40,7 +40,7 @@ export async function GET() {
         taxRate: 16.0,
         contactEmail: "versalylabs@gmail.com",
         phone: "+254 704 611 033 / +254 929 868 25",
-        address: "Woodvale Grove, Westlands, Nairobi, Kenya",
+        address: "Ruaraka, Nairobi, Kenya",
         website: "https://pulsefitness.co.ke",
       },
       { status: 200 }
@@ -94,7 +94,7 @@ export async function POST(req: Request) {
         taxRate: taxRate ? parseFloat(taxRate) : 16.0,
         contactEmail: contactEmail || "versalylabs@gmail.com",
         phone: phone || "+254 704 611 033 / +254 929 868 25",
-        address: address || "Woodvale Grove, Westlands, Nairobi, Kenya",
+        address: address || "Ruaraka, Nairobi, Kenya",
         website: website || "https://pulsefitness.co.ke",
       },
     });

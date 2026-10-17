@@ -96,7 +96,7 @@ export default function WebsiteFooter() {
 
               <div className="flex items-center gap-2 text-[#8C9390]">
                 <MapPin className="w-3.5 h-3.5 text-[#C8FF3D] shrink-0" />
-                <span>{brand.address || "Woodvale Grove, Westlands, Nairobi, Kenya"}</span>
+                <span>{brand.address || "Ruaraka, Nairobi, Kenya"}</span>
               </div>
             </div>
 
